@@ -3,6 +3,7 @@ import { AuthContext } from "../../hooks/auth_login";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import "./login.css"
 
 const LoginPage = () => {
 
@@ -52,16 +53,13 @@ const LoginPage = () => {
     }
 
     return (
-        <div className="login">
-        <h1>Login</h1>
+        <div id="login-div">
         <form className="form" onSubmit={enviar}>
-                <label htmlFor="email">Usúario:</label>
-                <input name="email" type="text" id="email" value={usuario} onChange={(e) => setUsuario(e.target.value)/*Pega o valor de usuario e seta na variavel de estado usuario */}/>
+                <input className="input" name="email" type="text" id="email" value={usuario} onChange={(e) => setUsuario(e.target.value)/*Pega o valor de usuario e seta na variavel de estado usuario */} placeholder="Digite seu e-mail"/>
     
-                <label htmlFor="senha">Senha:</label>
-                <input name="senha" type="password" id="senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
+                <input className="input" name="senha" type="password" id="senha" value={senha} onChange={(e) => setSenha(e.target.value)} placeholder="Digite sua senha"/>
 
-                <button type="submit"> Logar</button>
+                <button className="button" type="submit"> Logar</button>
         </form>
         </div>
     );
