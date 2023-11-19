@@ -1,7 +1,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const validarFormulario = (usuario,senha) => {
+const  validarFormulario = (usuario,senha) => {
 
     console.log("Chamou validação")
 
