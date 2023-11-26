@@ -1,0 +1,32 @@
+.butoes-novos-div{
+    
+    margin-top:20px
+
+}
+
+#estatisticas-div{
+
+    display: flex;
+    margin-top: 40px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+
+}
+
+#estatisticas-div .organizar-estatisticas, #estatisticas-div .organizar-estatisticas-genero{
+
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+@media only screen and (max-width:629px){
+
+    #estatisticas-div .organizar-estatisticas-genero{
+
+        display: none;
+    
+    }
+
+}

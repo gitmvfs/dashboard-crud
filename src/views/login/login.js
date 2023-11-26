@@ -40,7 +40,6 @@ const LoginPage = () => {
 
     }
 
-
     return (
         <div id="login-div">
         <form className="form" onSubmit={enviarFormulario}>
