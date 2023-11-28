@@ -18,9 +18,16 @@ const CadastroProduto = () => {
   const [cor, setCor] = useState('');
   const [genero, setGenero] = useState('feminino');
   const [tipo, setTipo] = useState('');
+  const [fotos, setFotos] = useState([]);
+  const [descricao, setDescricao] = useState('');
 
   const handleSelectChange = (selected) => {
     setSelectedOptions(selected);
+  };
+
+  const handleFileChange = (e) => {
+    const files = e.target.files;
+    setFotos(files);
   };
 
   const enviarFormulario = (e) => {
@@ -33,6 +40,9 @@ const CadastroProduto = () => {
     console.log('Gênero:', genero);
     console.log('Tipo:', tipo);
     console.log('Tamanhos selecionados:', selectedOptions);
+    console.log('Fotos:', fotos);
+    console.log('Descrição:', descricao);
+
 
     // Rota axios aqui:
   };
@@ -83,6 +93,25 @@ const CadastroProduto = () => {
           options={opcoes}
           value={selectedOptions}
           onChange={handleSelectChange}
+        />
+
+        <input
+          type="file"
+          id="fotos"
+          name="fotos"
+          accept="image/*"
+          multiple
+          onChange={handleFileChange}
+        />
+
+        <textarea
+          id="descricao"
+          name="descricao"
+          value={descricao}
+          onChange={(e) => setDescricao(e.target.value)}
+          rows={5}
+          style={{ resize: 'none' }}
+          placeholder="descricao"
         />
 
         <button type="submit">Cadastrar</button>
