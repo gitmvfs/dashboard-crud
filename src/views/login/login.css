@@ -21,20 +21,47 @@
         border-radius: 5px;
     }
 
-    .input{
+    .input-div{
+        display: flex;
+        align-items: center;
+    }
 
-        width: 280px;
+    .input, .input-senha{
+
+        width: 250px;
         height: 50px;
         margin-top: 10px;
 
         border: 1px solid black;
-        border-radius: 5px;
+        border-radius: 0px;
 
+    }
+
+    .input-senha{
+        width: 220px;
+    }
+
+    .input:focus, .input-senha {
+        outline: none; /* Remove a borda de destaque padrão */
+        box-shadow: none; /* Remove o sombreamento de destaque padrão */
+    }
+
+    .input-icon{
+        border: 1px solid black;
+        height: 16px;
+        padding: 18px 15px;
+        margin-top:10px;
+        border-radius: 5px 0 0 5px;
+    }
+
+    .input-icon:hover{
+        filter: opacity(80%);
+        cursor: pointer;
     }
 
     .button{
         margin-top: 70px;
-        width: 280px;
+        width: 300px;
         height: 50px;
         
         border-radius: 5px;

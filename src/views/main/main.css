@@ -1,0 +1,56 @@
+
+#butoes-novos-div , #estatisticas-div{
+ /* Margin padrão das div para dar um espaço nas borda */
+ margin-left : 40px;
+ margin-right: 40px;
+}
+
+#butoes-novos-div{
+    display: flex;
+    flex-direction: row;
+    margin-top:20px
+}
+
+#butoes-novos-div a{
+    
+    width: 150px;
+    margin-right: 40px;
+
+}
+
+#butoes-novos-div button{
+
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+
+    width: 150px;
+
+}
+
+#estatisticas-div{
+
+    display: flex;
+    margin-top: 40px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+
+}
+
+#estatisticas-div .organizar-estatisticas, #estatisticas-div .organizar-estatisticas-genero{
+
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+@media only screen and (max-width:629px){
+
+    #estatisticas-div .organizar-estatisticas-genero{
+
+        display: none;
+    
+    }
+
+}

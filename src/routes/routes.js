@@ -1,7 +1,12 @@
 import React, { useContext } from "react"; 
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import Login from '../views/login/login'
 import { AuthProvider, AuthContext } from "../hooks/auth_login";
+
+// Import das telas
+
+import Main from "../views/main/main";
+import Login from '../views/login/login'
+import CadastroProduto from "../views/cadastroProduto/cadastroProduto";
 
 const AppRotas = () => {
 
@@ -26,9 +31,15 @@ const AppRotas = () => {
     // Usa envolve a rota com a função private para que ela só seja acessada caso o usuario esteja autenticado
     return(
         <BrowserRouter>
+            <Routes>
+            
+                <Route exact path="/main" element={<Main />} />
+                <Route exact path="/produto/cadastro" element={<CadastroProduto />} />
+
+            </Routes>
             <AuthProvider>
                 <Routes>
-                    <Route exact path="/" element={<Login />} />
+                    <Route exact path="/login" element={<Login />} />
                 </Routes>
             </AuthProvider>
         </BrowserRouter>
