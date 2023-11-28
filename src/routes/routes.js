@@ -1,8 +1,12 @@
 import React, { useContext } from "react"; 
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { AuthProvider, AuthContext } from "../hooks/auth_login";
+
+// Import das telas
+
 import Main from "../views/main/main";
 import Login from '../views/login/login'
-import { AuthProvider, AuthContext } from "../hooks/auth_login";
+import CadastroProduto from "../views/cadastroProduto/cadastroProduto";
 
 const AppRotas = () => {
 
@@ -30,6 +34,7 @@ const AppRotas = () => {
             <Routes>
             
                 <Route exact path="/main" element={<Main />} />
+                <Route exact path="/produto/cadastro" element={<CadastroProduto />} />
 
             </Routes>
             <AuthProvider>

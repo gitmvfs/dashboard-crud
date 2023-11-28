@@ -10,8 +10,8 @@ return(
 
         <div id="butoes-novos-div">
             
-            <button id="categoriaFormulario">+ CATEGORIA </button>
-            <button id="produtoFormulario">+ PRODUTO </button>
+           <a href="/categoria/cadastro"> <button id="categoriaFormulario" >+ CATEGORIA </button> </a>
+           <a href="/produto/cadastro"> <button id="produtoFormulario">+ PRODUTO </button></a>
             
         </div>
         <div id="estatisticas-div">
