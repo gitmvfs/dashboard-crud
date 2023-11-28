@@ -1,0 +1,26 @@
+.card-container {
+    border: 1px solid #ddd;
+    padding: 20px;
+    width: 400px;
+    box-shadow: 0 0 10px #ddd;
+    margin: 20px auto;
+   }
+   
+   input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+   }
+   
+   button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+   }
+   
+   button:hover {
+    background-color: #0056b3;
+   }
