@@ -7,6 +7,7 @@ import { AuthProvider, AuthContext } from "../hooks/auth_login";
 import Main from "../views/main/main";
 import Login from '../views/login/login'
 import CadastroProduto from "../views/cadastroProduto/cadastroProduto";
+import CadastroCategoria from "../views/cadastroCategoria/cadastroCategoria";
 
 const AppRotas = () => {
 
@@ -32,9 +33,11 @@ const AppRotas = () => {
     return(
         <BrowserRouter>
             <Routes>
-            
+
                 <Route exact path="/main" element={<Main />} />
                 <Route exact path="/produto/cadastro" element={<CadastroProduto />} />
+                <Route exact path="/categoria/cadastro" element={<CadastroCategoria />} />
+
 
             </Routes>
             <AuthProvider>
