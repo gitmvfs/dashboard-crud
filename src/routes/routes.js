@@ -19,7 +19,7 @@ const AppRotas = () => {
                     <Route path="/login" element={<Login />} />
                     {/* Rotas protegidas */}
                     <Route path="/main" element={<PrivateRoute component={<Main />} />} />
-                    <Route path="/produto/cadastro" element={<PrivateRoute component={<CadastroProduto />} />} />
+                    <Route path="/produto/cadastro" element={ <CadastroProduto />}  />
                     <Route path="/categoria/cadastro" element={<PrivateRoute component={<CadastroCategoria />} />} />
                     <Route path="/produto/view/:id" element={<PrivateRoute component={<ProdutoView />} />} />
                 </Routes>
