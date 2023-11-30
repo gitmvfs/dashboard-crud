@@ -1,8 +1,7 @@
-import { useEffect } from "react"
 import "./produtoView.css"
 import { useParams } from 'react-router-dom';
-
-
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const ProdutoView = () =>{
     const { id } = useParams();
@@ -36,15 +35,16 @@ const ProdutoView = () =>{
   
     return (
       <>
+      <h1>{id}</h1>
         {/* Renderize seus dados aqui */}
         {data && (
           <div id="produto-div">
             
             <div className="imagens">
 
-                <img src={data.linkFoto1}/>
-                <img src={data.linkFoto2}/>
-                <img src={data.linkFoto3}/>
+                <img src={data.linkFoto1} alt="Imagem do produto"/>
+                <img src={data.linkFoto2} alt="Imagem do produto"/>
+                <img src={data.linkFoto3} alt="Imagem do produto"/>
 
             </div>
             <div className="informacoes-produto">
