@@ -36,14 +36,14 @@ const CadastroProduto = () => {
   
     const formDataImagens = new FormData();
 
-    // Adiciona as fotos ao FormData usando o mesmo nome que o servidor espera ('files')
+    // Adiciona as fotos ao FormData usando o mesmo nome que o servidor espera ('images')
     for (let i = 0; i < fotos.length; i++) {
       formDataImagens.append('images', fotos[i]);
     }
   
     // Rota axios para enviar apenas as imagens
     try {
-      const responseImagens = await axios.post('http://localhost:3001/imagem/inserir', formDataImagens, {
+      const responseImagens = await axios.post('https://localhost:3001/imagem/inserir', formDataImagens, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
