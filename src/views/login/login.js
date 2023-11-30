@@ -7,10 +7,10 @@ import "./login.css"
 
 // Importando os icones
 
-import icon_eye from "../../images/icons/eye.svg"
-import icon_eye_closed from "../../images/icons/eye-closed.svg"
-import mail from "../../images/icons/mail.svg"
-import locked from "../../images/icons/lock.svg"
+import icon_eye from "../../images/icons/login/eye-closed.svg"
+import icon_eye_closed from "../../images/icons/login/eye-closed.svg"
+import mail from "../../images/icons/login/mail.svg"
+import locked from "../../images/icons/login/lock.svg"
 
 
 const LoginPage = () => {
