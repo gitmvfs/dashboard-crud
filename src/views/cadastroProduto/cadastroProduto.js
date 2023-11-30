@@ -1,6 +1,7 @@
 import "./cadastroProduto.css";
 import React, { useState } from 'react';
 import Select from 'react-select';
+import axios from "axios"
 
 const CadastroProduto = () => {
   const opcoes = [
@@ -30,21 +31,45 @@ const CadastroProduto = () => {
     setFotos(files);
   };
 
-  const enviarFormulario = (e) => {
+  const enviarFormulario = async (e) => {
     e.preventDefault();
+  
+    const formDataImagens = new FormData();
 
-    // Recupera os valores dos inputs
-    console.log('Nome:', nome);
-    console.log('Preço:', preco);
-    console.log('Cor:', cor);
-    console.log('Gênero:', genero);
-    console.log('Tipo:', tipo);
-    console.log('Tamanhos selecionados:', selectedOptions);
-    console.log('Fotos:', fotos);
-    console.log('Descrição:', descricao);
-
-
-    // Rota axios aqui:
+    // Adiciona as fotos ao FormData usando o mesmo nome que o servidor espera ('images')
+    for (let i = 0; i < fotos.length; i++) {
+      formDataImagens.append('images', fotos[i]);
+    }
+  
+    // Rota axios para enviar apenas as imagens
+    try {
+      const responseImagens = await axios.post('https://localhost:3001/imagem/inserir', formDataImagens, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+  
+      console.log('Resposta Imagens:', responseImagens);
+  
+      // Se necessário, adicione lógica para extrair IDs ou outras informações relevantes da resposta da primeira rota
+  
+      // Agora, você pode criar um segundo FormData para os outros dados que você deseja enviar para a outra rota
+      const formDataOutrosDados = new FormData();
+      formDataOutrosDados.append('nome', nome);
+      formDataOutrosDados.append('preco', preco);
+      // Adicione outros campos conforme necessário
+  
+      // Rota axios para enviar os outros dados
+      const responseOutrosDados = await axios.post('sua-outra-rota', formDataOutrosDados, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log('Resposta Outros Dados:', responseOutrosDados);
+  
+    } catch (error) {
+      console.error('Erro:', error);
+    }
   };
 
   return (

@@ -1,52 +1,44 @@
-import React, { useContext } from "react"; 
+import React from "react"; 
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { AuthProvider, AuthContext } from "../hooks/auth_login";
+import { AuthProvider } from "../hooks/auth_login";
+import { AuthContext } from "../hooks/auth_login";
+import { useContext } from "react";
 
 // Import das telas
-
 import Main from "../views/main/main";
-import Login from '../views/login/login'
+import Login from '../views/login/login';
 import CadastroProduto from "../views/cadastroProduto/cadastroProduto";
 import CadastroCategoria from "../views/cadastroCategoria/cadastroCategoria";
+import ProdutoView from "../views/produtoView/produtoView";
 
 const AppRotas = () => {
-
-    // Função para privar rotas (recebe children do contexto)
-    const Private = ({children}) => {
-        // Resgata authenticated e carregando do contexto
-        const { authenticated, carregando } = useContext(AuthContext);
-
-        // Verifica se as informações estão prontas para serem exibidas e se o usuario esta autenticado
-        if(carregando) {
-            return(<div className="carregando"><h2>Carregando....</h2></div>);
-        }
-        if(!authenticated) {
-            return(
-                <Navigate to="/login" />
-            );
-        }    
-        return(children);
-    };
-   
-    // Definição das rotas do app
-    // Usa envolve a rota com a função private para que ela só seja acessada caso o usuario esteja autenticado
-    return(
+    return (
         <BrowserRouter>
-            <Routes>
-
-                <Route exact path="/main" element={<Main />} />
-                <Route exact path="/produto/cadastro" element={<CadastroProduto />} />
-                <Route exact path="/categoria/cadastro" element={<CadastroCategoria />} />
-
-
-            </Routes>
             <AuthProvider>
                 <Routes>
-                    <Route exact path="/login" element={<Login />} />
+                    <Route path="/login" element={<Login />} />
+                    {/* Rotas protegidas */}
+                    <Route path="/main" element={<PrivateRoute component={<Main />} />} />
+                    <Route path="/produto/cadastro" element={ <CadastroProduto />}  />
+                    <Route path="/categoria/cadastro" element={<PrivateRoute component={<CadastroCategoria />} />} />
+                    <Route path="/produto/view/:id" element={<PrivateRoute component={<ProdutoView />} />} />
                 </Routes>
             </AuthProvider>
         </BrowserRouter>
     );
 }
+
+const PrivateRoute = ({ component }) => {
+    const { authenticated, carregando } = useContext(AuthContext);
+
+    if (carregando) {
+        return <div className="carregando"><h2>Carregando....</h2></div>;
+    }
+    if (!authenticated) {
+        return <Navigate to="/login" />;
+    }
+
+    return component;
+};
 
 export default AppRotas;
