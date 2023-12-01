@@ -33,7 +33,7 @@ const CadastroProduto = () => {
   const [tipo, setTipo] = useState('');
   const [fotos, setFotos] = useState([]);
   const [descricao, setDescricao] = useState('');
-  const [categorias, setCategorias] = useState([]);
+  const [categoria, setCategoria] = useState([]);
   const [categoriaOpt,setCategoriasOpt] = useState([])
 
   const tamanhoOptions = [
@@ -46,12 +46,14 @@ const CadastroProduto = () => {
   ];
 
   const tipoOptions = [
-    { value: 'PP', label: 'PP' },
-    { value: 'P', label: 'P' },
-    { value: 'M', label: 'M' },
-    { value: 'G', label: 'G' },
-    { value: 'GG', label: 'GG' },
-    { value: 'XGG', label: 'XGG' },
+    { value: 'vestido', label: 'Vestido' },
+    { value: 'macacão', label: 'Macacão' },
+    { value: 'calça', label: 'Calça' },
+    { value: 'blusa', label: 'Blusa' },
+    { value: 'camisa', label: 'Camisa' },
+    { value: 'calçado', label: 'Calçado' },
+    { value: 'blazer', label: 'Blazer' },
+    { value: 'paletó', label: 'Paletó' },
   ];
 
   const generoOptions = [
@@ -66,7 +68,7 @@ const CadastroProduto = () => {
 
 
   const handleCategorias = (selected) => {
-    setCategorias(selected);
+    setCategoria(selected);
   };
 
   
@@ -108,10 +110,55 @@ const enviarFormulario = async (e) => {
     const urlImage_1 = cadastroImagem.data[0]
     const urlImage_2 = cadastroImagem.data[1]
     const urlImage_3 = cadastroImagem.data[2]
+    
+   
 
-    console.log(urlImage_1)
-    console.log(urlImage_2)
-    console.log(urlImage_3)
+    // Cria um map com os valores dos tamanhos
+    const tamanhosSelecionados = tamanho.map(option => option.value);
+
+    console.log(
+      nome,
+      preco,
+      genero.value,
+      descricao,
+      tamanhosSelecionados,
+      cor,
+      tipo.value,
+      categoria.value
+
+
+    )
+    axios.post('http://localhost:3000/produto', {
+       
+        nome:nome,
+        preco:preco,
+        genero:genero.value,
+        descricao:descricao,
+        tamanhos:tamanhosSelecionados,
+        cor:cor,
+        tipo:tipo.value,
+        linkFoto1:urlImage_1,
+        linkFoto2:urlImage_2,
+        linkFoto3:urlImage_3,
+        categoriaNome:categoria.value
+
+    })
+    .then((resultado) =>{
+
+        console.log(resultado)
+
+    })
+    .catch((err) =>{
+
+      Swal.fire({
+        title: err,
+        icon: 'warning',
+        confirmButtonText: 'OK'
+      });
+    
+
+    })
+
   }
   catch(err){
 
@@ -168,7 +215,7 @@ const enviarFormulario = async (e) => {
 
       <Select
         options={categoriaOpt.map(nome => ({ value: nome, label: nome }))}
-        value={setCategorias}
+        value={categoria}
         onChange={handleCategorias}
       />
 
