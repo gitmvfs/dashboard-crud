@@ -1,6 +1,6 @@
 import CardContagem from "../../components/card/card_contagem";
 import "./main.css"
-
+import CardCategoria from "../../components/cardCategoria/cardCategoria";
 
 const Main = () => {
 
@@ -31,7 +31,14 @@ return(
 
         </div> */}
 
-        
+        <center>
+            <h1>Categorias</h1>
+        </center>
+        <div id="categorias-div">
+
+            <CardCategoria/>
+            
+        </div>
 
     </>
 
