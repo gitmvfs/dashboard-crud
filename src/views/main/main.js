@@ -14,7 +14,7 @@ return(
            <a href="/produto/cadastro"> <button id="produtoFormulario">+ PRODUTO </button></a>
             
         </div>
-        <div id="estatisticas-div">
+        {/* <div id="estatisticas-div">
             
             <div className="organizar-estatisticas">
                 
@@ -29,8 +29,9 @@ return(
                 <CardContagem titulo="Masculino" contagem="300"> </CardContagem>
             </div>
 
-        </div>
+        </div> */}
 
+        
 
     </>
 
