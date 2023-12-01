@@ -1,10 +1,42 @@
 import "./cadastroProduto.css";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import axios from "axios"
+import Swal from "sweetalert2";
+
 
 const CadastroProduto = () => {
-  const opcoes = [
+ 
+  useEffect(() => {
+    // Função assíncrona para buscar as opções da categoria
+    const fetchCategorias = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/categoria');
+        // Atualiza o estado com as opções da categoria do servidor
+        const nomesDasCategorias = response.data.map((categoria) => categoria.nome);
+        setCategoriasOpt(nomesDasCategorias);
+      } catch (error) {
+        console.error('Erro ao obter opções de categoria:', error);
+      }
+    };
+
+    // Chama a função para buscar as opções da categoria quando o componente montar
+    fetchCategorias();
+  }, []); // O array de dependências vazio garante que a solicitação seja feita apenas uma vez, quando o componente montar
+
+
+  const [tamanho, setTamanho] = useState([]);
+  const [nome, setNome] = useState('');
+  const [preco, setPreco] = useState('');
+  const [cor, setCor] = useState('');
+  const [genero, setGenero] = useState('feminino');
+  const [tipo, setTipo] = useState('');
+  const [fotos, setFotos] = useState([]);
+  const [descricao, setDescricao] = useState('');
+  const [categorias, setCategorias] = useState([]);
+  const [categoriaOpt,setCategoriasOpt] = useState([])
+
+  const tamanhoOptions = [
     { value: 'PP', label: 'PP' },
     { value: 'P', label: 'P' },
     { value: 'M', label: 'M' },
@@ -13,64 +45,83 @@ const CadastroProduto = () => {
     { value: 'XGG', label: 'XGG' },
   ];
 
-  const [selectedOptions, setSelectedOptions] = useState([]);
-  const [nome, setNome] = useState('');
-  const [preco, setPreco] = useState('');
-  const [cor, setCor] = useState('');
-  const [genero, setGenero] = useState('feminino');
-  const [tipo, setTipo] = useState('');
-  const [fotos, setFotos] = useState([]);
-  const [descricao, setDescricao] = useState('');
+  const tipoOptions = [
+    { value: 'PP', label: 'PP' },
+    { value: 'P', label: 'P' },
+    { value: 'M', label: 'M' },
+    { value: 'G', label: 'G' },
+    { value: 'GG', label: 'GG' },
+    { value: 'XGG', label: 'XGG' },
+  ];
 
-  const handleSelectChange = (selected) => {
-    setSelectedOptions(selected);
+  const generoOptions = [
+    { value: 'masculino', label: 'Masculino' },
+    { value: 'feminino', label: 'Feminino' },
+    { value: 'unissex', label: 'Unissex' },
+  ];
+
+  const handleTamanho = (selected) => {
+    setTamanho(selected);
   };
+
+
+  const handleCategorias = (selected) => {
+    setCategorias(selected);
+  };
+
+  
+  const handleTipo = (selected) => {
+    setTipo(selected);
+  };
+
+  
+  const handleGenero = (selected) => {
+    setGenero(selected);
+  };
+
 
   const handleFileChange = (e) => {
     const files = e.target.files;
     setFotos(files);
   };
 
-  const enviarFormulario = async (e) => {
-    e.preventDefault();
   
-    const formDataImagens = new FormData();
+const enviarFormulario = async (e) => {
+  e.preventDefault();
 
-    // Adiciona as fotos ao FormData usando o mesmo nome que o servidor espera ('images')
-    for (let i = 0; i < fotos.length; i++) {
-      formDataImagens.append('images', fotos[i]);
-    }
-  
-    // Rota axios para enviar apenas as imagens
-    try {
-      const responseImagens = await axios.post('https://localhost:3001/imagem/inserir', formDataImagens, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-  
-      console.log('Resposta Imagens:', responseImagens);
-  
-      // Se necessário, adicione lógica para extrair IDs ou outras informações relevantes da resposta da primeira rota
-  
-      // Agora, você pode criar um segundo FormData para os outros dados que você deseja enviar para a outra rota
-      const formDataOutrosDados = new FormData();
-      formDataOutrosDados.append('nome', nome);
-      formDataOutrosDados.append('preco', preco);
-      // Adicione outros campos conforme necessário
-  
-      // Rota axios para enviar os outros dados
-      const responseOutrosDados = await axios.post('sua-outra-rota', formDataOutrosDados, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log('Resposta Outros Dados:', responseOutrosDados);
-  
-    } catch (error) {
-      console.error('Erro:', error);
-    }
-  };
+  const formDataImagens = new FormData();
+
+  // Adiciona as fotos ao FormData usando o mesmo nome que o servidor espera ('images')
+  for (let i = 0; i < fotos.length; i++) {
+    formDataImagens.append('images', fotos[i]);
+  }
+
+  // Rota axios para enviar apenas as imagens
+  try {
+   
+    const cadastroImagem = await axios.post('http://localhost:3000/imagem/inserir', formDataImagens, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    const urlImage_1 = cadastroImagem.data[0]
+    const urlImage_2 = cadastroImagem.data[1]
+    const urlImage_3 = cadastroImagem.data[2]
+
+    console.log(urlImage_1)
+    console.log(urlImage_2)
+    console.log(urlImage_3)
+  }
+  catch(err){
+
+    Swal.fire({
+      title: err,
+      icon: 'warning',
+      confirmButtonText: 'OK'
+    });
+  }
+}
 
   return (
     <>
@@ -96,29 +147,30 @@ const CadastroProduto = () => {
           onChange={(e) => setCor(e.target.value)}
         />
 
-        <select
-          name="genero"
-          value={genero}
-          onChange={(e) => setGenero(e.target.value)}
-        >
-          <option value="feminino">Feminino</option>
-          <option value="masculino">Masculino</option>
-          <option value="unissex">Unissex</option>
-        </select>
-
-        <input
-          placeholder="Tipo"
-          name="tipo"
+        <Select
+          options={tipoOptions}
           value={tipo}
-          onChange={(e) => setTipo(e.target.value)}
+          onChange={handleTipo}
+        />
+
+        <Select
+          options={generoOptions}
+          value={genero}
+          onChange={handleGenero}
         />
 
         <Select
           isMulti
-          options={opcoes}
-          value={selectedOptions}
-          onChange={handleSelectChange}
+          options={tamanhoOptions}
+          value={tamanho}
+          onChange={handleTamanho}
         />
+
+      <Select
+        options={categoriaOpt.map(nome => ({ value: nome, label: nome }))}
+        value={setCategorias}
+        onChange={handleCategorias}
+      />
 
         <input
           type="file"

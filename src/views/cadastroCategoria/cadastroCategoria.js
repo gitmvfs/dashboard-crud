@@ -64,7 +64,6 @@ const enviarFormulario = async (e) => {
       confirmButtonText: 'OK'
     });
 
-    console.log(error)
   }
 }
 

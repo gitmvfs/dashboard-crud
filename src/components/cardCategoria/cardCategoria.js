@@ -1,11 +1,11 @@
 import delete_icon from "../../images/icons/cardProduto/delete.svg"
 import edit_icon from "../../images/icons/cardProduto/edit.svg"
 import view_icon from "../../images/icons/cardProduto/view.svg"
-import './cardCategoria.css'
 import { useState, useEffect } from 'react';
 import FiltrarCards from '../../controller/filtrar_card';
 import LimparFiltro from '../../controller/limpar_filtro';
 import axios from "axios"
+import './cardCategoria.css'
 
 const confirmarDelete = (id) => {
   // Lógica para confirmar a exclusão
