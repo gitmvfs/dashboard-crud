@@ -1,6 +1,6 @@
 import CardContagem from "../../components/card/card_contagem";
 import "./main.css"
-
+import CardCategoria from "../../components/cardCategoria/cardCategoria";
 
 const Main = () => {
 
@@ -14,7 +14,7 @@ return(
            <a href="/produto/cadastro"> <button id="produtoFormulario">+ PRODUTO </button></a>
             
         </div>
-        <div id="estatisticas-div">
+        {/* <div id="estatisticas-div">
             
             <div className="organizar-estatisticas">
                 
@@ -29,8 +29,16 @@ return(
                 <CardContagem titulo="Masculino" contagem="300"> </CardContagem>
             </div>
 
-        </div>
+        </div> */}
 
+        <center>
+            <h1>Categorias</h1>
+        </center>
+        <div id="categorias-div">
+
+            <CardCategoria/>
+            
+        </div>
 
     </>
 

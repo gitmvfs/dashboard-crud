@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './cadastroCategoria.css';
+import axios from "axios"
+import Swal from "sweetalert2";
+import formatDate from "../../controller/data_formatada"
 
 const CadastroCategoria = () => {
 
@@ -7,22 +10,68 @@ const CadastroCategoria = () => {
  const [dataInicio, setDataInicio] = useState('');
  const [dataFinal, setDataFinal] = useState('');
  const [descricao, setDescricao] = useState('');
+ const [fotos, setFotos] = useState([]);
 
- const handleSubmit = (e) => {
-   e.preventDefault();
-   console.log('Event Name:', nome);
-   console.log('Start Date:', dataInicio);
-   console.log('End Date:', dataFinal);
-   console.log('Description:', descricao);
+ const handleFileChange = (e) => {
+  const files = e.target.files;
+  setFotos(files);
+};
 
-    
 
- };
+const enviarFormulario = async (e) => {
+  e.preventDefault();
+
+  console.log(dataFinal)
+  console.log(dataInicio)
+
+  const formDataImagens = new FormData();
+
+  // Adiciona as fotos ao FormData usando o mesmo nome que o servidor espera ('images')
+  for (let i = 0; i < fotos.length; i++) {
+    formDataImagens.append('images', fotos[i]);
+  }
+
+  // Rota axios para enviar apenas as imagens
+  try {
+   
+    const cadastroImagem = await axios.post('http://localhost:3000/imagem/inserir', formDataImagens, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    const urlImage = cadastroImagem.data[0]
+
+ 
+
+    const cadastroCategoria = await axios.post("http://localhost:3000/categoria", {
+
+    nome:nome,
+    descricao:descricao,
+    inicio:new Date(dataInicio),
+    fim:new Date(dataFinal),
+    img:urlImage
+
+    })
+
+    console.log(cadastroCategoria)
+  }
+  catch(error){
+
+    Swal.fire({
+      title: error,
+      icon: 'warning',
+      confirmButtonText: 'OK'
+    });
+
+    console.log(error)
+  }
+}
 
  return (
     <div className="card-container">
       <h3>Nova categoria</h3>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={enviarFormulario}>
         <label>
           Nome:
           <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} />
@@ -30,13 +79,22 @@ const CadastroCategoria = () => {
         
         <label>
           Data inicio:
-          <input type="date" value={dataInicio} onChange={(e) => setDataInicio(e.target.value)} />
-        </label>
-        
+          <input
+            type="date"
+            value={dataInicio}
+            onChange={(e) => setDataInicio(formatDate(e.target.value))}
+          />
+       </label>
+
         <label>
-          Data final:
-          <input type="date" value={dataFinal} onChange={(e) => setDataFinal(e.target.value)} />
+              Data final:
+              <input
+                type="date"
+                value={dataFinal}
+                onChange={(e) => setDataFinal(formatDate(e.target.value))}
+            />
         </label>
+
         
         <label>
           Descricao:
@@ -46,6 +104,15 @@ const CadastroCategoria = () => {
           
           />
         </label>
+
+        <input
+          type="file"
+          id="fotos"
+          name="fotos"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
+
 
         <button type="submit">Cadastrar</button>
       </form>
