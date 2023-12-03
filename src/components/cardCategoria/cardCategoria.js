@@ -1,11 +1,18 @@
+import axios from "axios"
+import './cardCategoria.css'
+import { useState, useEffect } from 'react';
+import api from "../../service/request_api";
+
+//import filtros
+import FiltrarCards from '../../controller/filtrar_card';
+import LimparFiltro from '../../controller/limpar_filtro';
+
+// import imagens
+
 import delete_icon from "../../images/icons/cardProduto/delete.svg"
 import edit_icon from "../../images/icons/cardProduto/edit.svg"
 import view_icon from "../../images/icons/cardProduto/view.svg"
-import './cardCategoria.css'
-import { useState, useEffect } from 'react';
-import FiltrarCards from '../../controller/filtrar_card';
-import LimparFiltro from '../../controller/limpar_filtro';
-import axios from "axios"
+
 
 const confirmarDelete = (id) => {
   // Lógica para confirmar a exclusão
@@ -34,7 +41,7 @@ function CardCategoria(){
 
     // Antes do site carregar ele faz uma requisição para a api
     useEffect(() => {
-        axios.get('http://localhost:3000/categoria')
+        api.get('/categoria')
           .then(async(res) => {
             await setData(res.data) // Caso a requisição tenha dado certo ele guarda no data
             await setDataFiltro(res.data)
@@ -48,36 +55,42 @@ function CardCategoria(){
     return(
         
     <div className='filtro-div'>
-        <center className='mt-5'>
-        <input
+      <center className='mt-5'>
+        <input className="barra"
             type="text"
             value={valorInput}
             onInput={handleInputChange}
             placeholder='Digite o nome da categoria'
         />
-        
-       <button onClick={ () => FiltrarCards(valorInput,valorInput,data,setDataFiltro)} placeholder='Digite o nome'>Filtrar</button>
-       <button onClick={ () => LimparFiltro(setValorInput,setDataFiltro,data)} placeholder='Digite o nome'>Limpar Filtro</button>
+        <div className="butoes">
+        <button className="butaocor" onClick={ () => FiltrarCards(valorInput,valorInput,data,setDataFiltro)} placeholder='Digite o nome'>Filtrar</button>
+        <button className="butaocor"onClick={ () => LimparFiltro(setValorInput,setDataFiltro,data)} placeholder='Digite o nome'>Limpar Filtro</button>
+        </div>
+       
        </center>
-    <div className='card-div'>
+    <div id='card-div'>
     {
     dataFiltro
     .map(props =>( 
     <div className='card-container'>
          
 
-  
-        <div>
-            <h1>{props.nome}</h1>
-        </div>
-      
+        <center>
+        <h1>{props.nome}</h1>
+        </center>
 
-        <div className="opcoes-categoria">
+        <div>
+          <img
+            src={props.img}
+          />
+
+          
+      <div className="opcoes-categoria">
        
        <a href={`/produto/visualizar/${props.index}`}>
          <img src={view_icon} alt="Visualizar" />
        </a>
-      
+       
        <a href={`/produto/editar/${props.index}`}>
          <img src={edit_icon} alt="Editar" />
        </a>
@@ -87,8 +100,12 @@ function CardCategoria(){
          src={delete_icon}
          alt="Excluir"
        />
-   
-     </div>
+  
+    </div>
+        </div>
+        
+      
+
         
        
 

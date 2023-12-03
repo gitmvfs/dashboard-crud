@@ -1,8 +1,22 @@
+.container{
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+}
 
-#butoes-novos-div , #estatisticas-div{
- /* Margin padrão das div para dar um espaço nas borda */
- margin-left : 40px;
- margin-right: 40px;
+.body-dash{
+    padding: 2.5rem;
+    border: 1px solid #ddd;
+    width: 85%;
+    box-shadow: 0 0 10px #ddd;
+}
+
+#categoriaFormulario, #produtoFormulario{
+    background-color: #9C7D61;
+}
+
+#categoriaFormulario:hover, #produtoFormulario:hover {
+    background-color: #68584a;
 }
 
 #butoes-novos-div{
@@ -44,6 +58,16 @@
     flex-wrap: wrap;
     margin-top: 20px;
 }
+
+.separacao-div{
+    margin-top: 30px;
+    height: 2px;
+    background-color: #68584a;
+    margin-left:  -20px;
+    margin-right:  -20px;
+
+}
+
 
 @media only screen and (max-width:629px){
 

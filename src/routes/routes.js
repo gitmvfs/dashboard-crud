@@ -18,7 +18,7 @@ const AppRotas = () => {
                 <Routes>
                     <Route path="/login" element={<Login />} />
                     {/* Rotas protegidas */}
-                    <Route path="/main" element={<Main />}  />
+                    <Route path="/" element={<Main />}  />
                     <Route path="/produto/cadastro" element={ <CadastroProduto />}  />
                     <Route path="/categoria/cadastro" element={<CadastroCategoria  />} />
                     <Route path="/produto/view/:id" element= {<ProdutoView />} />

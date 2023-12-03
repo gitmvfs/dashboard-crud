@@ -1,7 +1,9 @@
 import "./cadastroProduto.css";
 import React, { useState } from 'react';
 import Select from 'react-select';
-import axios from "axios"
+import axios from "axios";
+import Header from "../../components/layout/header/headerSemFiltro";
+import cam from "../../images/icons/Group 75.png"
 
 const CadastroProduto = () => {
   const opcoes = [
@@ -74,73 +76,100 @@ const CadastroProduto = () => {
 
   return (
     <>
-      <form onSubmit={enviarFormulario}>
-        <input
-          placeholder="Nome"
-          name="nome"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-        />
+      <div >
+        <Header/>
+        <div className="body-cad">
+          <div className="card-container">
+            <form onSubmit={enviarFormulario}>
+            <div className="parte1">
+              <div className="um">
+                <input
+                  id="idnome"
+                  placeholder="Nome"
+                  name="nome"
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                />
 
-        <input
-          placeholder="Preço"
-          name="preco"
-          value={preco}
-          onChange={(e) => setPreco(e.target.value)}
-        />
+                <input
+                  placeholder="Preço"
+                  name="preco"
+                  value={preco}
+                  onChange={(e) => setPreco(e.target.value)}
+                />
+              </div>
 
-        <input
-          placeholder="Cor"
-          name="cor"
-          value={cor}
-          onChange={(e) => setCor(e.target.value)}
-        />
+              <div className="dois">
+                <input
+                  placeholder="Cor"
+                  name="cor"
+                  value={cor}
+                  onChange={(e) => setCor(e.target.value)}
+                />
 
-        <select
-          name="genero"
-          value={genero}
-          onChange={(e) => setGenero(e.target.value)}
-        >
-          <option value="feminino">Feminino</option>
-          <option value="masculino">Masculino</option>
-          <option value="unissex">Unissex</option>
-        </select>
+                <select
+                  className="gen"
+                  name="genero"
+                  value={genero}
+                  onChange={(e) => setGenero(e.target.value)}
+                >
+                  <option value="feminino">Feminino</option>
+                  <option value="masculino">Masculino</option>
+                  <option value="unissex">Unissex</option>
+                </select>
+              </div>
+              
+              <div className="tres">
+                <input
+                  placeholder="Tipo"
+                  name="tipo"
+                  value={tipo}
+                  onChange={(e) => setTipo(e.target.value)}
+                />
 
-        <input
-          placeholder="Tipo"
-          name="tipo"
-          value={tipo}
-          onChange={(e) => setTipo(e.target.value)}
-        />
+                <Select
+                  className="tam"
+                  isMulti
+                  options={opcoes}
+                  value={selectedOptions}
+                  onChange={handleSelectChange}
+                />
+              </div>
 
-        <Select
-          isMulti
-          options={opcoes}
-          value={selectedOptions}
-          onChange={handleSelectChange}
-        />
+            </div>
+            
+            <div className="pat2">
+              <label className="upload">
+                <img  id="icon" src={cam} alt='carregar imagem' />
+                <input
+                  type="file"
+                  id="fotos"
+                  name="fotos"
+                  accept="image/*"
+                  multiple
+                  onChange={handleFileChange}
+                />
+              </label>
+              
 
-        <input
-          type="file"
-          id="fotos"
-          name="fotos"
-          accept="image/*"
-          multiple
-          onChange={handleFileChange}
-        />
+              <textarea
+                id="desc"
+                name="descricao"
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+                rows={5}
+                style={{ resize: 'none' }}
+                placeholder="descricao"
+              />
+            </div>
+            
 
-        <textarea
-          id="descricao"
-          name="descricao"
-          value={descricao}
-          onChange={(e) => setDescricao(e.target.value)}
-          rows={5}
-          style={{ resize: 'none' }}
-          placeholder="descricao"
-        />
-
-        <button type="submit">Cadastrar</button>
-      </form>
+            <button type="submit">Cadastrar</button>
+          </form>
+          </div>
+        </div>
+      </div>
+      
     </>
   );
 };
