@@ -13,4 +13,19 @@ function formatDate(dateString) {
     return formattedDate;
   }
   
-module.exports = formatDate
+  function formatarDataBr(dataISO8601) {
+    // Criar um objeto de data a partir da string
+    const data = new Date(dataISO8601);
+
+    // Obter dia, mês e ano
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0'); // Mês começa do zero
+    const ano = data.getFullYear();
+
+    // Criar a string no formato brasileiro
+    const dataBrasileira = `${dia}/${mes}/${ano}`;
+
+    return dataBrasileira;
+}
+
+module.exports = {formatDate, formatarDataBr}

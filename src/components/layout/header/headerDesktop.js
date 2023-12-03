@@ -4,9 +4,7 @@ export default function Header (){
     return(
         <div className="Background">
             <div className="teste">
-                <form className="formhed">
-                    <input id="procura" type="text" placeholder="procurar" className="input-icon" />
-                </form>
+               
             </div>
             <div className="hh1">
                 <p>ethereal club</p>

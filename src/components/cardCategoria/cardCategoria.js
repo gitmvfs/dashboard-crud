@@ -1,119 +1,124 @@
-import axios from "axios"
-import './cardCategoria.css'
-import { useState, useEffect } from 'react';
+import axios from "axios";
+import "./cardCategoria.css";
+import { useState, useEffect } from "react";
 import api from "../../service/request_api";
 
 //import filtros
-import FiltrarCards from '../../controller/filtrar_card';
-import LimparFiltro from '../../controller/limpar_filtro';
-
+import FiltrarCards from "../../controller/filtrar_card";
+import LimparFiltro from "../../controller/limpar_filtro";
+import { formatarDataBr } from "../../controller/data_formatada";
 // import imagens
 
-import delete_icon from "../../images/icons/cardProduto/delete.svg"
-import edit_icon from "../../images/icons/cardProduto/edit.svg"
-import view_icon from "../../images/icons/cardProduto/view.svg"
-
+import delete_icon from "../../images/icons/cardProduto/delete.svg";
+import edit_icon from "../../images/icons/cardProduto/edit.svg";
+import view_icon from "../../images/icons/cardProduto/view.svg";
 
 const confirmarDelete = (id) => {
   // Lógica para confirmar a exclusão
   console.log(`Excluir produto com ID ${id}`);
-}
+};
 
+function CardCategoria() {
+  // Guarda os valores do array gerado pela API
+  const [data, setData] = useState([]);
 
+  //Guarda os valores do input Filtro
+  const [valorInput, setValorInput] = useState("");
 
-function CardCategoria(){
+  //Guarda a nova lista (caso filtrada)
+  const [dataFiltro, setDataFiltro] = useState([]);
 
-    
-    // Guarda os valores do array gerado pela API
-    const [data, setData] = useState([])
+  //Define o valor do input Filtro
+  const handleInputChange = (event) => {
+    setValorInput(event.target.value);
+  };
 
-    //Guarda os valores do input Filtro
-    const [valorInput, setValorInput] = useState("");
+  // Antes do site carregar ele faz uma requisição para a api
+  useEffect(() => {
+    api
+      .get("/categoria")
+      .then(async (res) => {
+        await setData(res.data); // Caso a requisição tenha dado certo ele guarda no data
+        await setDataFiltro(res.data);
+        console.log(res.data); // Testa no console a resposta da api
+      })
+      .catch((err) => alert("Erro inesperado: " + err)); // Caso tenha gerado algum erro no processo ele da um alerta com o erro
+  }, []);
 
-    //Guarda a nova lista (caso filtrada)
-    const [dataFiltro,setDataFiltro] = useState([])
-    
-    //Define o valor do input Filtro 
-    const handleInputChange = (event) => {
-        setValorInput(event.target.value)
-        
-      };
-
-    // Antes do site carregar ele faz uma requisição para a api
-    useEffect(() => {
-        api.get('/categoria')
-          .then(async(res) => {
-            await setData(res.data) // Caso a requisição tenha dado certo ele guarda no data
-            await setDataFiltro(res.data)
-            console.log(res.data)   // Testa no console a resposta da api
-          })
-        .catch(err => alert("Erro inesperado: " + err))   // Caso tenha gerado algum erro no processo ele da um alerta com o erro
-      }, [])
-
-
-    // Parte que vai ser renderizada
-    return(
-        
-    <div className='filtro-div'>
-      <center className='mt-5'>
-        <input className="barra"
-            type="text"
-            value={valorInput}
-            onInput={handleInputChange}
-            placeholder='Digite o nome da categoria'
+  // Parte que vai ser renderizada
+  return (
+    <div className="filtro-div">
+      <center className="mt-5">
+        <input
+          className="barra"
+          type="text"
+          value={valorInput}
+          onInput={handleInputChange}
+          placeholder="Digite o nome da categoria"
         />
         <div className="butoes">
-        <button className="butaocor" onClick={ () => FiltrarCards(valorInput,valorInput,data,setDataFiltro)} placeholder='Digite o nome'>Filtrar</button>
-        <button className="butaocor"onClick={ () => LimparFiltro(setValorInput,setDataFiltro,data)} placeholder='Digite o nome'>Limpar Filtro</button>
+          <button
+            className="butaocor"
+            onClick={() =>
+              FiltrarCards(valorInput, valorInput, data, setDataFiltro)
+            }
+            placeholder="Digite o nome"
+          >
+            Filtrar
+          </button>
+          <button
+            className="butaocor"
+            onClick={() => LimparFiltro(setValorInput, setDataFiltro, data)}
+            placeholder="Digite o nome"
+          >
+            Limpar Filtro
+          </button>
         </div>
-       
-       </center>
-    <div id='card-div'>
-    {
-    dataFiltro
-    .map(props =>( 
-    <div className='card-container'>
-         
+      </center>
+      <div id="card-div">
+        {dataFiltro.map((props) => (
+          <div className="card-container">
+            <center>
+              <h1>{props.nome}</h1>
+            </center>
 
-        <center>
-        <h1>{props.nome}</h1>
-        </center>
+            <div>
+              <img src={props.img} />
 
-        <div>
-          <img
-            src={props.img}
-          />
 
+              <div className="opcoes-categoria">
+                <a href={`/produto/editar/${props.index}`}>
+                  <img src={edit_icon} alt="Editar" />
+                </a>
+
+                <img
+                  onClick={() => confirmarDelete(props.index)}
+                  src={delete_icon}
+                  alt="Excluir"
+                />
+              </div>
+              <div className="data-categoria">
+                <label>
+                    Data começo:
+                    <h3>{formatarDataBr (props.inicio)}</h3>
+                </label>
+                <label>
+                    Data final:
+                    <h3>{formatarDataBr(props.fim)}</h3>
+                </label>
+
+              </div>
+            </div>
+
+            <center>
+              <h2>{props.descricao}</h2>
+            </center>
           
-      <div className="opcoes-categoria">
-       
-       <a href={`/produto/visualizar/${props.index}`}>
-         <img src={view_icon} alt="Visualizar" />
-       </a>
-       
-       <a href={`/produto/editar/${props.index}`}>
-         <img src={edit_icon} alt="Editar" />
-       </a>
-       
-       <img
-         onClick={() => confirmarDelete(props.index)}
-         src={delete_icon}
-         alt="Excluir"
-       />
-  
+          </div>// final do card-container
+        ))}
+      </div>
     </div>
-        </div>
-        
-      
-
-        
-       
-
-    </div>
-    ) ) }
-    </div> 
-</div>  
-)  
+  );
 }
 
-export default CardCategoria
+export default CardCategoria;

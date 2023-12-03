@@ -14,6 +14,7 @@
 
 .barra{
     width: 300px;
+    font-size: 16px;
 }
 
 .mt-5{
@@ -42,18 +43,23 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-radius: 5px;
 }
 
 .card-container h1{
     margin-top: -20px;
+    margin-bottom: 5px;
+}
 
+.card-container h2{
+    font-size: 12px;
 }
 
 .card-container img{
     width: 200px;
-    padding-bottom: 10px;
-    padding-top: 10px;
     cursor: pointer;
+    border: 2px solid black;
+    border-radius: 5px;
 }
 
 .opcoes-categoria{
@@ -64,8 +70,8 @@
     align-items: center;
     justify-content: space-around;
     width: 200px;
-    margin-top: -68px;
-    background-color: #dddddd3d;
+    margin-top: -38px;
+    background-color: #dddddd70;
     transition: 1s;
     z-index: 1;
 }
@@ -77,6 +83,19 @@
 
 .opcoes-categoria img{
     width: 30px;
+    border: none;
+}
+
+.data-categoria{
+    display: flex;
+    flex-direction: row;
+    width: 200px;
+    justify-content: space-around;
+    margin-top : 10px;
+}
+
+.data-categoria h3, label{
+    font-size: 12px;
 }
 
 
