@@ -12,12 +12,28 @@ import { formatarDataBr } from "../../controller/data_formatada";
 import delete_icon from "../../images/icons/cardProduto/delete.svg";
 import edit_icon from "../../images/icons/cardProduto/edit.svg";
 import view_icon from "../../images/icons/cardProduto/view.svg";
+import Swal from "sweetalert2";
 
 const confirmarDelete = (id) => {
   // Lógica para confirmar a exclusão
-  console.log(`Excluir produto com ID ${id}`);
-};
 
+  Swal.fire({
+    title: "Você tem certeza?",
+    text: "Esta ação não pode ser revertida!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sim, confirmar!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Se o usuário confirmou, faça a requisição para a API
+      api.delete("/categoria/" + id).then(() => {
+        window.location.reload();
+      });
+    }
+  });
+};
 function CardCategoria() {
   // Guarda os valores do array gerado pela API
   const [data, setData] = useState([]);
@@ -85,7 +101,6 @@ function CardCategoria() {
             <div>
               <img src={props.img} />
 
-
               <div className="opcoes-categoria">
                 <a href={`/produto/editar/${props.index}`}>
                   <img src={edit_icon} alt="Editar" />
@@ -99,22 +114,20 @@ function CardCategoria() {
               </div>
               <div className="data-categoria">
                 <label>
-                    Data começo:
-                    <h3>{formatarDataBr (props.inicio)}</h3>
+                  Data começo:
+                  <h3>{formatarDataBr(props.inicio)}</h3>
                 </label>
                 <label>
-                    Data final:
-                    <h3>{formatarDataBr(props.fim)}</h3>
+                  Data final:
+                  <h3>{formatarDataBr(props.fim)}</h3>
                 </label>
-
               </div>
             </div>
 
             <center>
               <h2>{props.descricao}</h2>
             </center>
-          
-          </div>// final do card-container
+          </div> // final do card-container
         ))}
       </div>
     </div>

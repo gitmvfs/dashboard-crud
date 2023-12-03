@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import './cadastroCategoria.css';
 import axios from "axios"
+import api from '../../service/request_api';
 import Swal from "sweetalert2";
-import formatDate from "../../controller/data_formatada";
+
+import {formatDate} from "../../controller/data_formatada";
 import Header from "../../components/layout/header/headerSemFiltro";
+
 import cam from "../../images/icons/Group 75.png"
 
 const CadastroCategoria = () => {
@@ -35,7 +38,7 @@ const enviarFormulario = async (e) => {
   // Rota axios para enviar apenas as imagens
   try {
    
-    const cadastroImagem = await axios.post('http://localhost:3000/imagem/inserir', formDataImagens, {
+    const cadastroImagem = await api.post('/imagem', formDataImagens, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -45,7 +48,7 @@ const enviarFormulario = async (e) => {
 
  
 
-    const cadastroCategoria = await axios.post("http://localhost:3000/categoria", {
+    const cadastroCategoria = await api.post("/categoria", {
 
     nome:nome,
     descricao:descricao,
