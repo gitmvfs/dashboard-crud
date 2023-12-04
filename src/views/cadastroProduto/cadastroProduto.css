@@ -1,4 +1,6 @@
-/* .body-cad{
+#formulario-produto-div{
+
+.body-cad{
     padding: 2.5rem;
     display: flex;
     justify-content: center;
@@ -108,4 +110,8 @@ button:hover {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-} */
+}
+
+}
+
+
