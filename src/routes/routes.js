@@ -10,6 +10,7 @@ import Login from '../views/login/login';
 import CadastroProduto from "../views/cadastroProduto/cadastroProduto";
 import CadastroCategoria from "../views/cadastroCategoria/cadastroCategoria";
 import ProdutoView from "../views/produtoView/produtoView";
+import UpdateCategoria from "../views/updateCategoria/updateCategoria";
 
 const AppRotas = () => {
     return (
@@ -22,6 +23,7 @@ const AppRotas = () => {
                     <Route path="/produto/cadastro" element={ <CadastroProduto />}  />
                     <Route path="/categoria/cadastro" element={<CadastroCategoria  />} />
                     <Route path="/produto/view/:id" element= {<ProdutoView />} />
+                    <Route path="/categoria/editar/:id" element= {<UpdateCategoria />} />
                 </Routes>
             </AuthProvider>
         </BrowserRouter>

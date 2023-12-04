@@ -57,9 +57,12 @@
 
 .card-container img{
     width: 200px;
+    max-height: 250px;
     cursor: pointer;
     border: 2px solid black;
     border-radius: 5px;
+    object-fit: cover;
+    object-position: top;
 }
 
 .opcoes-categoria{
@@ -71,7 +74,7 @@
     justify-content: space-around;
     width: 200px;
     margin-top: -38px;
-    background-color: #dddddd70;
+    background-color: #0f0f0f70;
     transition: 1s;
     z-index: 1;
 }

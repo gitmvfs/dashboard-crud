@@ -22,9 +22,10 @@ const confirmarDelete = (id) => {
     text: "Esta ação não pode ser revertida!",
     icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Sim, confirmar!",
+    cancelButtonColor: "#3085d6",
+    confirmButtonColor: "#d33",
+    confirmButtonText: "Deletar Categoria!",
+    reverseButtons: true
   }).then((result) => {
     if (result.isConfirmed) {
       // Se o usuário confirmou, faça a requisição para a API
@@ -102,7 +103,7 @@ function CardCategoria() {
               <img src={props.img} />
 
               <div className="opcoes-categoria">
-                <a href={`/produto/editar/${props.index}`}>
+                <a href={`/categoria/editar/${props.index}`}>
                   <img src={edit_icon} alt="Editar" />
                 </a>
 
