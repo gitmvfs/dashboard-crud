@@ -1,17 +1,16 @@
 import axios from "axios";
 import "./cardCategoria.css";
 import { useState, useEffect } from "react";
-import api from "../../service/request_api";
+import api from "../../service/api";
 
 //import filtros
-import FiltrarCards from "../../controller/filtros/filtrar_card";
-import LimparFiltro from "../../controller/filtros/limpar_filtro";
-import { formatarDataBr } from "../../controller/data_formatada";
+import FiltrarCards from "../../util/filtros/filtrar_card";
+import LimparFiltro from "../../util/filtros/limpar_filtro";
+import { formatarDataBr } from "../../util/data_formatada";
 // import imagens
 
 import delete_icon from "../../images/icons/cardProduto/delete.svg";
 import edit_icon from "../../images/icons/cardProduto/edit.svg";
-import view_icon from "../../images/icons/cardProduto/view.svg";
 import Swal from "sweetalert2";
 
 const confirmarDelete = (id) => {
@@ -64,7 +63,7 @@ function CardCategoria() {
 
   // Parte que vai ser renderizada
   return (
-    <div className="filtro-div">
+    <div id="categorias-div">
       <center className="mt-5">
         <input
           className="barra"
