@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import AppRotas from './routes/routes';
+import AppRotas from './routes';
 
 function App() {
   return (

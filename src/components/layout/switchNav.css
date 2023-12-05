@@ -1,0 +1,12 @@
+header{
+    position:fixed;
+    width: 100vw;
+    z-index: 1;
+}
+
+@media only screen and (max-width:768px){
+
+    header{
+        position: unset;
+    }
+}
