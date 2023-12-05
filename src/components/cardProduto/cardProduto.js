@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import api from "../../service/request_api";
 
 //import filtros
-import FiltrarCards from "../../controller/filtrar_card";
-import LimparFiltro from "../../controller/limpar_filtro";
+import FiltrarCards from "../../controller/filtros/filtrar_card";
+import LimparFiltro from "../../controller/filtros/limpar_filtro";
 import { formatarDataBr } from "../../controller/data_formatada";
 // import imagens
 
@@ -96,12 +96,16 @@ function CardProduto() {
             <div className="card-container" key={props.index}>
               <div>
                 <img src={props.linkFoto1} />
-  
+
                 <div className="opcoes-produto">
+                <a href={`/produto/visualizar/${props.index}`}>
+                    <img src={view_icon} alt="Editar" />
+                  </a>
+                 
                   <a href={`/produto/editar/${props.index}`}>
                     <img src={edit_icon} alt="Editar" />
                   </a>
-  
+
                   <img
                     onClick={() => confirmarDelete(props.index)}
                     src={delete_icon}
@@ -109,7 +113,7 @@ function CardProduto() {
                   />
                 </div>
               </div>
-  
+
               <center>
                 <h2>{props.genero}</h2>
                 <h2>{props.tipo}</h2>
@@ -123,8 +127,6 @@ function CardProduto() {
       </div>
     </div>
   );
-  
-  
 }
 
 export default CardProduto;

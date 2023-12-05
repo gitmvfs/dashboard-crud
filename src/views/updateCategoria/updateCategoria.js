@@ -6,7 +6,7 @@ import { formatDate } from "../../controller/data_formatada";
 import { useParams, useNavigate } from "react-router-dom";
 
 import api from "../../service/request_api";
-import atualizar_categoria from "../../controller/categoria_att";
+import atualizar_categoria from "../../controller/atualizar/categoria_att";
 
 import Header from "../../components/layout/header/headerSemFiltro";
 import cam from "../../images/icons/Group 75.png";

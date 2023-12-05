@@ -11,6 +11,7 @@ import CadastroProduto from "../views/cadastroProduto/cadastroProduto";
 import CadastroCategoria from "../views/cadastroCategoria/cadastroCategoria";
 import ProdutoView from "../views/produtoView/produtoView";
 import UpdateCategoria from "../views/updateCategoria/updateCategoria";
+import UpdateProduto from "../views/updateProduto/updateProduto";
 
 const AppRotas = () => {
     return (
@@ -20,10 +21,12 @@ const AppRotas = () => {
                     <Route path="/login" element={<Login />} />
                     {/* Rotas protegidas */}
                     <Route path="/" element={<Main />}  />
-                    <Route path="/produto/cadastro" element={ <CadastroProduto />}  />
                     <Route path="/categoria/cadastro" element={<CadastroCategoria  />} />
-                    <Route path="/produto/view/:id" element= {<ProdutoView />} />
                     <Route path="/categoria/editar/:id" element= {<UpdateCategoria />} />
+                 
+                    <Route path="/produto/cadastro" element={ <CadastroProduto />}  />
+                    <Route path="/produto/view/:id" element= {<ProdutoView />} />
+                    <Route path="/produto/editar/:id" element= {<UpdateProduto />} />
                 </Routes>
             </AuthProvider>
         </BrowserRouter>

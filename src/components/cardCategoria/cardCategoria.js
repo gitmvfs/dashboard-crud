@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import api from "../../service/request_api";
 
 //import filtros
-import FiltrarCards from "../../controller/filtrar_card";
-import LimparFiltro from "../../controller/limpar_filtro";
+import FiltrarCards from "../../controller/filtros/filtrar_card";
+import LimparFiltro from "../../controller/filtros/limpar_filtro";
 import { formatarDataBr } from "../../controller/data_formatada";
 // import imagens
 

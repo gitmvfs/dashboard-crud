@@ -5,7 +5,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import Header from "../../components/layout/header/headerSemFiltro";
 import api from "../../service/request_api";
-import cadastrar_produto from "../../controller/produto_cadastro";
+import cadastrar_produto from "../../controller/cadastro/produto_cadastro";
 import cam from "../../images/icons/Group 75.png"
 
 const CadastroProduto = () => {

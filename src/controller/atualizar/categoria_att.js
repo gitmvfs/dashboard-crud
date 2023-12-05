@@ -1,4 +1,4 @@
-import api from "../service/request_api";
+import api from "../../service/request_api";
 import Swal from "sweetalert2";
 import { Navigate } from "react-router-dom";
 
