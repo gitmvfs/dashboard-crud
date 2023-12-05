@@ -4,6 +4,7 @@ import { useContext } from "react";
 
 // Import das telas
 import MainView from "./views/main/main";
+import CadastroCategoriaView from "./views/categoriaPost/formCategoria";
 
 const AppRotas = () => {
     return (
@@ -11,6 +12,7 @@ const AppRotas = () => {
                 <Routes>
 
                     <Route path="/" element={<MainView />}  />
+                    <Route path="/categoria/cadastro" element={<CadastroCategoriaView />}  />
 
                 </Routes>
         </BrowserRouter>

@@ -14,6 +14,7 @@
     margin-top: -150px;
     font-size: 3.6rem;
     color: #fff;
+    cursor: default;
 }
 
 @media only screen and (max-width: 768px) {

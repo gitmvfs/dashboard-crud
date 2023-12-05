@@ -70,12 +70,13 @@ header{
 
     #deslogar{
         margin:20px;
-        margin-right: 30px;
+        margin-right: 60px;
+        padding-left: 30px;
         cursor: pointer;
-        transition: 0.1s;
+        transition: 0.3s;
     }
     #deslogar:hover{
-        margin:20px;
+        margin-right:50px;
         cursor: pointer;
         color: rgba(0, 0, 0, 0.582);
     }

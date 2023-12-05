@@ -1,0 +1,139 @@
+.body-cad{
+    position: relative;
+    top: 100px;
+    left: auto;
+    right: auto;
+    padding: 2.5rem;
+    width: 70vw;
+    display: flex;
+    justify-content: center;
+    border: 1px solid;
+    flex-direction: column;
+    max-width: 1000px;
+}
+
+.ptcima{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end
+
+
+}
+
+.pat1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 70%;
+}
+
+.titu{
+    color: #684328;
+    display: flex;
+    justify-content: center;
+}
+
+#fotos{
+    display: none;
+}
+
+.upload{
+    display: flex;
+    background-color: #CCBAA7;
+    border: 2px #BB9161 solid;
+    height: 180px;
+    max-width: 200px;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+
+}
+
+.upload img{
+    height: 50px;
+    width: 50px;
+}
+
+.pat1 label,.pat3 label{
+    font-weight: bold;
+    color: #553721;
+}
+
+.pat1 input{
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 18px;
+    box-sizing: border-box;
+    color: black;
+    background-color: #E8D5C1;
+    border: none;
+    border-bottom: 1px solid;
+    border-radius: 5px;
+
+    outline: 0;
+}
+
+.pat3{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.desc{
+    display: flex;
+    height: 200px;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    background-color: #E8D5C1;
+    border-radius: 5px;
+    border: 2px solid #BB9161;
+    outline: 0;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #9C7D61;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+   
+button:hover {
+    background-color: #68584a;
+}
+
+@media only screen and (max-width:768px) {
+
+    .ptcima{
+    display: flex;
+    flex-direction: column;
+    align-items: center
+
+}
+    .pat1{
+        width: 100%;
+    }
+
+    .pat1 input{
+        width: 100%;
+    }
+
+    .upload{
+        display: flex;
+        background-color: #CCBAA7;
+        border: 2px #BB9161 solid;
+        height: 180px;
+        width: 100%;
+        max-width: none;
+        margin-top: 20px;
+    
+    }
+
+
+}

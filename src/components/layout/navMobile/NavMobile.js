@@ -25,8 +25,11 @@ function NavMobile(){
         </div>
       </div> 
       <nav className={`nav-mobile-header ${menuAtivo? 'visible': ''}`}>
+          <a  href="/" class="h1">Inicio</a>
+
           <a  class="h1">+ Categoria</a>
           <a  class="h1">+ Produto</a>
+          <a  class="h1">Deslogar</a>
       </nav>
       
       </div>

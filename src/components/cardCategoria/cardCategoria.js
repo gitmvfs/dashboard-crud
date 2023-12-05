@@ -7,33 +7,15 @@ import api from "../../service/api";
 import FiltrarCards from "../../util/filtros/filtrar_card";
 import LimparFiltro from "../../util/filtros/limpar_filtro";
 import { formatarDataBr } from "../../util/data_formatada";
-// import imagens
 
+// import imagens
 import delete_icon from "../../images/icons/cardProduto/delete.svg";
 import edit_icon from "../../images/icons/cardProduto/edit.svg";
 import Swal from "sweetalert2";
 
-const confirmarDelete = (id) => {
-  // Lógica para confirmar a exclusão
+//import das operações
+import ConfirmarDelete from "../../controller/categoria/categoria_delete"
 
-  Swal.fire({
-    title: "Você tem certeza?",
-    text: "Esta ação não pode ser revertida!",
-    icon: "warning",
-    showCancelButton: true,
-    cancelButtonColor: "#3085d6",
-    confirmButtonColor: "#d33",
-    confirmButtonText: "Deletar Categoria!",
-    reverseButtons: true
-  }).then((result) => {
-    if (result.isConfirmed) {
-      // Se o usuário confirmou, faça a requisição para a API
-      api.delete("/categoria/" + id).then(() => {
-        window.location.reload();
-      });
-    }
-  });
-};
 function CardCategoria() {
   // Guarda os valores do array gerado pela API
   const [data, setData] = useState([]);
@@ -106,7 +88,7 @@ function CardCategoria() {
                   </a>
   
                   <img
-                    onClick={() => confirmarDelete(props.index)}
+                    onClick={() => ConfirmarDelete(props.index)}
                     src={delete_icon}
                     alt="Excluir"
                   />
