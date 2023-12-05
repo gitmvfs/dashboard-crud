@@ -2,7 +2,7 @@ import CardContagem from "../../components/card/card_contagem";
 import "./main.css";
 import CardCategoria from "../../components/cardCategoria/cardCategoria";
 import Header from "../../components/layout/header/headerDesktop";
-
+import CardProduto from "../../components/cardProduto/cardProduto";
 const Main = () => {
   return (
     <>
@@ -52,6 +52,16 @@ const Main = () => {
               </CardContagem>
             </div>
           </div> */}
+
+
+          <hr className="separacao-div"></hr>
+          <center>
+            <h1>Produtos</h1>
+          </center>
+          <div id="produtos-div">
+          <CardProduto/>
+
+          </div>
           <hr className="separacao-div"></hr>
 
           <center>

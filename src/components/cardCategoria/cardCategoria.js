@@ -79,60 +79,63 @@ function CardCategoria() {
             onClick={() =>
               FiltrarCards(valorInput, valorInput, data, setDataFiltro)
             }
-            placeholder="Digite o nome"
           >
             Filtrar
           </button>
           <button
             className="butaocor"
             onClick={() => LimparFiltro(setValorInput, setDataFiltro, data)}
-            placeholder="Digite o nome"
           >
             Limpar Filtro
           </button>
         </div>
       </center>
       <div id="card-div">
-        {dataFiltro.map((props) => (
-          <div className="card-container">
-            <center>
-              <h1>{props.nome}</h1>
-            </center>
-
-            <div>
-              <img src={props.img} />
-
-              <div className="opcoes-categoria">
-                <a href={`/categoria/editar/${props.index}`}>
-                  <img src={edit_icon} alt="Editar" />
-                </a>
-
-                <img
-                  onClick={() => confirmarDelete(props.index)}
-                  src={delete_icon}
-                  alt="Excluir"
-                />
+        {Array.isArray(dataFiltro) && dataFiltro.length > 0 ? (
+          dataFiltro.map((props) => (
+            <div className="card-container" key={props.index}>
+              <center>
+                <h1>{props.nome}</h1>
+              </center>
+  
+              <div>
+                <img src={props.img} />
+  
+                <div className="opcoes-categoria">
+                  <a href={`/categoria/editar/${props.index}`}>
+                    <img src={edit_icon} alt="Editar" />
+                  </a>
+  
+                  <img
+                    onClick={() => confirmarDelete(props.index)}
+                    src={delete_icon}
+                    alt="Excluir"
+                  />
+                </div>
+                <div className="data-categoria">
+                  <label>
+                    Data começo:
+                    <h3>{formatarDataBr(props.inicio)}</h3>
+                  </label>
+                  <label>
+                    Data final:
+                    <h3>{formatarDataBr(props.fim)}</h3>
+                  </label>
+                </div>
               </div>
-              <div className="data-categoria">
-                <label>
-                  Data começo:
-                  <h3>{formatarDataBr(props.inicio)}</h3>
-                </label>
-                <label>
-                  Data final:
-                  <h3>{formatarDataBr(props.fim)}</h3>
-                </label>
-              </div>
+  
+              <center>
+                <h2>{props.descricao}</h2>
+              </center>
             </div>
-
-            <center>
-              <h2>{props.descricao}</h2>
-            </center>
-          </div> // final do card-container
-        ))}
+          ))
+        ) : (
+          <p>Nenhum resultado encontrado</p>
+        )}
       </div>
     </div>
   );
+  
 }
 
 export default CardCategoria;
