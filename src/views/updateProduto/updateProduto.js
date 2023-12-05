@@ -37,22 +37,32 @@ const UpdateProduto = () => {
           api.get(`/produto/${id}`),
         ]);
 
-        setCategoriasOpt(categoriasResponse.data.map((categoria) => categoria.nome));
+        setCategoriasOpt(
+          categoriasResponse.data.map((categoria) => categoria.nome)
+        );
 
         const produtoData = produtoResponse.data[0];
-        console.log(produtoData)
         setProduto({
           nome: produtoData.nome,
           preco: produtoData.preco,
           cor: produtoData.cor,
-          genero: ({value : produtoData.genero, label:  produtoData.genero}),
-          tipo: ({value : produtoData.tipo, label: produtoData.tipo }),
-          fotos: [produtoData.linkFoto1, produtoData.linkFoto2, produtoData.linkFoto3],
+          genero: { value: produtoData.genero, label: produtoData.genero },
+          tipo: { value: produtoData.tipo, label: produtoData.tipo },
+          fotos: [
+            produtoData.linkFoto1,
+            produtoData.linkFoto2,
+            produtoData.linkFoto3,
+          ],
           descricao: produtoData.descricao,
-          categoria: ({value : produtoData.fk_categoria, label:  produtoData.fk_categoria}),
-          tamanho: produtoData.tamanhos.map((tamanhoNome) => ({ value: tamanhoNome, label: tamanhoNome })),
+          categoria: {
+            value: produtoData.fk_categoria,
+            label: produtoData.fk_categoria,
+          },
+          tamanho: produtoData.tamanhos.map((tamanhoNome) => ({
+            value: tamanhoNome,
+            label: tamanhoNome,
+          })),
         });
-        
       } catch (error) {
         console.error("Erro ao obter dados:", error);
       } finally {
@@ -63,7 +73,6 @@ const UpdateProduto = () => {
     fetchData();
   }, [id]);
 
- 
   const tamanhoOptions = [
     { value: "PP", label: "PP" },
     { value: "P", label: "P" },
@@ -90,7 +99,6 @@ const UpdateProduto = () => {
     { value: "unissex", label: "unissex" },
   ];
 
-
   const handleTamanho = (selected) => {
     setProduto((prevProduto) => ({ ...prevProduto, tamanho: selected }));
   };
@@ -110,13 +118,36 @@ const UpdateProduto = () => {
   const handleFileChange = (e) => {
     setProduto((prevProduto) => ({ ...prevProduto, fotos: e.target.files }));
   };
-  
+
   const enviarFormulario = async (e) => {
     e.preventDefault();
 
     try {
-      atualizar_produto(produto,id)
-      
+      if (produto.fotos instanceof FileList) {
+        const formDataImagens = new FormData();
+
+        // Adiciona as fotos ao FormData usando o mesmo nome que o servidor espera ('images')
+        for (let i = 0; i < produto.fotos.length; i++) {
+          formDataImagens.append("images", produto.fotos[i]);
+        }
+
+        await api
+          .post("/imagem", formDataImagens, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((resultado) => {
+
+            let foto1 = resultado.data[0]
+            let foto2 = resultado.data[1]
+            let foto3 = resultado.data[2]
+
+            atualizar_produto(produto,foto1,foto2,foto3, id);
+         });
+      } else {
+        atualizar_produto(produto,produto.fotos[0],produto.fotos[1],produto.fotos[2], id);
+      }
     } catch (err) {
       Swal.fire({
         title: err,
@@ -131,70 +162,79 @@ const UpdateProduto = () => {
       <Header />
 
       <form onSubmit={enviarFormulario}>
-  <input
-    id="idnome"
-    placeholder="Nome"
-    name="nome"
-    value={produto.nome}
-    onChange={(e) => setProduto({ ...produto, nome: e.target.value })}
-  />
+        <input
+          id="idnome"
+          placeholder="Nome"
+          name="nome"
+          value={produto.nome}
+          onChange={(e) => setProduto({ ...produto, nome: e.target.value })}
+        />
 
-  <input
-    placeholder="Preço"
-    name="preco"
-    value={produto.preco}
-    onChange={(e) => setProduto({ ...produto, preco: e.target.value })}
-  />
+        <input
+          placeholder="Preço"
+          name="preco"
+          value={produto.preco}
+          onChange={(e) => setProduto({ ...produto, preco: e.target.value })}
+        />
 
-  <input
-    placeholder="Cor"
-    name="cor"
-    value={produto.cor}
-    onChange={(e) => setProduto({ ...produto, cor: e.target.value })}
-  />
+        <input
+          placeholder="Cor"
+          name="cor"
+          value={produto.cor}
+          onChange={(e) => setProduto({ ...produto, cor: e.target.value })}
+        />
 
-<Select options={generoOptions} value={produto.genero} onChange={handleGenero} />
+        <Select
+          options={generoOptions}
+          value={produto.genero}
+          onChange={handleGenero}
+        />
 
-<Select options={tipoOptions} value={produto.tipo} onChange={handleTipo} />
+        <Select
+          options={tipoOptions}
+          value={produto.tipo}
+          onChange={handleTipo}
+        />
 
-<Select
-  isMulti
-  options={tamanhoOptions}
-  value={produto.tamanho}
-  onChange={handleTamanho}
-/>
+        <Select
+          isMulti
+          options={tamanhoOptions}
+          value={produto.tamanho}
+          onChange={handleTamanho}
+        />
 
-<Select
-  options={categoriaOpt.map((nome) => ({ value: nome, label: nome }))}
-  value={produto.categoria}
-  onChange={handleCategorias}
-/>
+        <Select
+          options={categoriaOpt.map((nome) => ({ value: nome, label: nome }))}
+          value={produto.categoria}
+          onChange={handleCategorias}
+        />
 
-  <label className="upload ">
-    <img id="icon" src={cam} alt="carregar imagem" />
-    <input
-      type="file"
-      id="fotos"
-      name="fotos"
-      accept="image/*"
-      multiple
-      onChange={handleFileChange}
-    />
-  </label>
+        <label className="upload ">
+          <img id="icon" src={cam} alt="carregar imagem" />
+          <input
+            type="file"
+            id="fotos"
+            name="fotos"
+            accept="image/*"
+            multiple
+            onChange={handleFileChange}
+          />
+        </label>
 
-  <textarea
-    id="desc"
-    name="descricao"
-    value={produto.descricao}
-    onChange={(e) => setProduto({ ...produto, descricao: e.target.value })}
-    rows={5}
-    style={{ resize: "none" }}
-    placeholder="descricao"
-  />
+        <textarea
+          id="desc"
+          name="descricao"
+          value={produto.descricao}
+          onChange={(e) =>
+            setProduto({ ...produto, descricao: e.target.value })
+          }
+          rows={5}
+          style={{ resize: "none" }}
+          placeholder="descricao"
+        />
 
-<button type="submit">Atualizar</button>
-</form>
-
+        <button type="submit">Atualizar</button>
+      </form>
     </div>
   );
 };

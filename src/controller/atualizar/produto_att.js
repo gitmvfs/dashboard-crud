@@ -2,10 +2,10 @@ import api from "../../service/request_api";
 import Swal from "sweetalert2";
 import { Navigate } from "react-router-dom";
 
-const atualizar_produto = (produto,id) => {
+const atualizar_produto = (produto,foto1,foto2,foto3,id) => {
 
     const tamanhosSelecionados = produto.tamanho.map((option) => option.value);
-    console.log(produto)
+    console.log(produto.fotos[0])
     console.log(id)
     api.put(/produto/+ id,{
 
@@ -14,9 +14,9 @@ const atualizar_produto = (produto,id) => {
         cor: produto.cor,
         genero: produto.genero.value,
         tipo: produto.tipo.value,
-        linkFoto1:produto.fotos[0],
-        linkFoto2:produto.fotos[1],
-        linkFoto3:produto.fotos[2],
+        linkFoto1:foto1,
+        linkFoto2:foto2,
+        linkFoto3:foto3,
         descricao:produto.descricao,
         categoriaNome: produto.categoria.value,
         tamanhos: tamanhosSelecionados

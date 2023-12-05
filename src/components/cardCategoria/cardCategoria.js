@@ -77,7 +77,7 @@ function CardCategoria() {
           <button
             className="butaocor"
             onClick={() =>
-              FiltrarCards(valorInput, valorInput, data, setDataFiltro)
+              FiltrarCards( valorInput, data, setDataFiltro)
             }
           >
             Filtrar
