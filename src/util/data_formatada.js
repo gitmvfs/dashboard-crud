@@ -23,7 +23,7 @@ function formatDate(dateString) {
     const ano = data.getFullYear();
 
     // Criar a string no formato brasileiro
-    const dataBrasileira = `${dia}/${mes}/${ano}`;
+    const dataBrasileira = `${dia}-${mes}-${ano}`;
 
     return dataBrasileira;
 }
