@@ -111,6 +111,7 @@ const CadastroProdutoView = () => {
       // Cria um map com os valores dos tamanhos
       const tamanhosSelecionados = tamanho.map((option) => option.value);
 
+      console.log(descricao)
       Produto_post(
         nome,
         preco,
@@ -124,9 +125,16 @@ const CadastroProdutoView = () => {
         urlImage_3,
         categoria
       );
-    } catch (err) {
+    } catch (error) {
+      if(error.response.status === 400){
+        error = "Pârametros inválidos, verifique os campos."
+      }
+      else{
+        error = "Erro interno do servidor."
+
+      }
       Swal.fire({
-        title: err,
+        title: error,
         icon: "warning",
         confirmButtonText: "OK",
       });
@@ -227,9 +235,9 @@ const CadastroProdutoView = () => {
               <label>Descricao:</label>
               <textarea
                 className="desc"
-                value={categoria.descricao}
+                value={descricao}
                 onChange={(e) =>
-                  setCategoria({ ...categoria, descricao: e.target.value })
+                  setDescricao( e.target.value )
                 }
                 style={{ resize: "none" }}
               />

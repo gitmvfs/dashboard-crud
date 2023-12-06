@@ -3,6 +3,8 @@ import Swal from "sweetalert2";
 import { Navigate } from "react-router-dom";
 
 const cadastrar_produto = (nome,preco,genero,descricao,tamanhosSelecionados,cor,tipo,urlImage_1,urlImage_2,urlImage_3,categoria) => {
+
+      console.log(descricao)
 api
         .post("/produto", {
           nome: nome,
@@ -25,13 +27,19 @@ api
             timer: 3000,
           });
         })
-        .catch((err) => {
+        .catch((error) => {
+          console.log(error)
+          if(error.response.status === 400){
+            error = "Pârametros inválidos, verifique os campos."
+          }
+          else{
+            error = "Erro interno do servidor."
+    
+          }
           Swal.fire({
-            title: "Parametros inválidos ou produto já cadastrado.",
+            title: error,
             icon: "warning",
             confirmButtonText: "OK",
-            timer: 3000, // Tempo em milissegundos (3 segundos)
-            timerProgressBar: true,
           });
         });
     }
