@@ -2,6 +2,7 @@ import axios from "axios";
 import "./cardCategoria.css";
 import { useState, useEffect } from "react";
 import api from "../../service/api";
+import Swal from "sweetalert2";
 
 //import filtros
 import FiltrarCards from "../../util/filtros/filtrar_card";
@@ -11,7 +12,7 @@ import { formatarDataBr } from "../../util/data_formatada";
 // import imagens
 import delete_icon from "../../images/icons/cardProduto/delete.svg";
 import edit_icon from "../../images/icons/cardProduto/edit.svg";
-import Swal from "sweetalert2";
+
 
 //import das operações
 import ConfirmarDelete from "../../controller/categoria/categoria_delete"
@@ -75,6 +76,7 @@ function CardCategoria() {
           </button>
         </div>
       </center>
+
       <div id="card-div">
         {Array.isArray(dataFiltro) && dataFiltro.length > 0 ? (
           dataFiltro.map((props) => (
