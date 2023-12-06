@@ -1,6 +1,5 @@
-#categorias-div{
+#produtos-div{
     padding: 30px;
-    padding-top: 0;
 
     .butaocor{
         background-color: #9C7D61;
@@ -26,6 +25,8 @@
         justify-content: space-between;
         justify-self: center;
     }
+    
+    
     
     
     #card-div{
@@ -69,7 +70,7 @@
         object-position: top;
     }
     
-    .opcoes-categoria{
+    .opcoes-produto{
         position: relative;
         opacity: 0;
         display: flex;
@@ -84,25 +85,18 @@
         z-index: 1;
     }
     
-    .card-container img:hover ~ .opcoes-categoria , .opcoes-categoria:hover{
+    .card-container img:hover ~ .opcoes-produto , .opcoes-produto:hover{
         opacity: 100%;
     }
     
     
-    .opcoes-categoria img{
+    .opcoes-produto img{
         width: 30px;
         border: none;
     }
     
-    .data-categoria{
-        display: flex;
-        flex-direction: row;
-        width: 200px;
-        justify-content: space-around;
-        margin-top : 10px;
-    }
     
-    .data-categoria h3, label{
+    .data-produto h3, label{
         font-size: 12px;
     }
     

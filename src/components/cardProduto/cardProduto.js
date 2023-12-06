@@ -1,5 +1,5 @@
 import axios from "axios";
-import "./cardCategoria.css";
+import "./cardProduto.css";
 import { useState, useEffect } from "react";
 import api from "../../service/api";
 
@@ -7,16 +7,35 @@ import api from "../../service/api";
 import FiltrarCards from "../../util/filtros/filtrar_card";
 import LimparFiltro from "../../util/filtros/limpar_filtro";
 import { formatarDataBr } from "../../util/data_formatada";
-
 // import imagens
+
 import delete_icon from "../../images/icons/cardProduto/delete.svg";
 import edit_icon from "../../images/icons/cardProduto/edit.svg";
+import view_icon from "../../images/icons/cardProduto/view.svg";
 import Swal from "sweetalert2";
 
-//import das operações
-import ConfirmarDelete from "../../controller/categoria/categoria_delete"
+const confirmarDelete = (id) => {
+  // Lógica para confirmar a exclusão
 
-function CardCategoria() {
+  Swal.fire({
+    title: "Você tem certeza?",
+    text: "Esta ação não pode ser revertida!",
+    icon: "warning",
+    showCancelButton: true,
+    cancelButtonColor: "#3085d6",
+    confirmButtonColor: "#d33",
+    confirmButtonText: "Deletar Produto!",
+    reverseButtons: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Se o usuário confirmou, faça a requisição para a API
+      api.delete("/produto/" + id).then(() => {
+        window.location.reload();
+      });
+    }
+  });
+};
+function CardProduto() {
   // Guarda os valores do array gerado pela API
   const [data, setData] = useState([]);
 
@@ -34,7 +53,7 @@ function CardCategoria() {
   // Antes do site carregar ele faz uma requisição para a api
   useEffect(() => {
     api
-      .get("/categoria")
+      .get("/produto")
       .then(async (res) => {
         await setData(res.data); // Caso a requisição tenha dado certo ele guarda no data
         await setDataFiltro(res.data);
@@ -45,24 +64,24 @@ function CardCategoria() {
 
   // Parte que vai ser renderizada
   return (
-    <div id="categorias-div">
+    <div id="produtos-div">
       <center>
-      <h1>Categorias</h1>
+      <h1>Produtos</h1>
+        
       </center>
-
       <center className="mt-5">
         <input
           className="barra"
           type="text"
           value={valorInput}
           onInput={handleInputChange}
-          placeholder="Digite o nome da categoria"
+          placeholder="Digite o nome do produto"
         />
         <div className="butoes">
           <button
             className="butaocor"
             onClick={() =>
-              FiltrarCards( valorInput, data, setDataFiltro)
+              FiltrarCards(valorInput, valorInput, data, setDataFiltro)
             }
           >
             Filtrar
@@ -79,38 +98,30 @@ function CardCategoria() {
         {Array.isArray(dataFiltro) && dataFiltro.length > 0 ? (
           dataFiltro.map((props) => (
             <div className="card-container" key={props.index}>
-              <center>
-                <h1>{props.nome}</h1>
-              </center>
-  
               <div>
-                <img src={props.img} />
-  
-                <div className="opcoes-categoria">
-                  <a href={`/categoria/editar/${props.index}`}>
+                <img src={props.linkFoto1} />
+
+                <div className="opcoes-produto">
+                <a href={`/produto/visualizar/${props.index}`}>
+                    <img src={view_icon} alt="Editar" />
+                  </a>
+                 
+                  <a href={`/produto/editar/${props.index}`}>
                     <img src={edit_icon} alt="Editar" />
                   </a>
-  
+
                   <img
-                    onClick={() => ConfirmarDelete(props.index)}
+                    onClick={() => confirmarDelete(props.index)}
                     src={delete_icon}
                     alt="Excluir"
                   />
                 </div>
-                <div className="data-categoria">
-                  <label>
-                    Data começo:
-                    <h3>{formatarDataBr(props.inicio)}</h3>
-                  </label>
-                  <label>
-                    Data final:
-                    <h3>{formatarDataBr(props.fim)}</h3>
-                  </label>
-                </div>
               </div>
-  
+
               <center>
-                <h2>{props.descricao}</h2>
+                <h2>{props.genero}</h2>
+                <h2>{props.tipo}</h2>
+                <h2>{props.fk_categoria}</h2>
               </center>
             </div>
           ))
@@ -120,7 +131,6 @@ function CardCategoria() {
       </div>
     </div>
   );
-  
 }
 
-export default CardCategoria;
+export default CardProduto;
