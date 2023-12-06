@@ -6,6 +6,7 @@ import { useContext } from "react";
 import MainView from "./views/main/main";
 import CadastroCategoriaView from "./views/categoriaPost/formCategoria";
 import EditarCategoriaView from "./views/categoriaPut/formCategoria";
+import CadastroProdutoView from "./views/produtoPost/cadastroProduto";
 
 const AppRotas = () => {
     return (
@@ -13,8 +14,13 @@ const AppRotas = () => {
                 <Routes>
 
                     <Route path="/" element={<MainView />}  />
+                   
                     <Route path="/categoria/cadastro" element={<CadastroCategoriaView />}  />
                     <Route path="/categoria/editar/:id" element ={<EditarCategoriaView/>}/>
+                    
+                    <Route path="/produto/cadastro" element ={<CadastroProdutoView/>}/>
+                    {/* <Route path="/categoria/editar/:id" element ={<EditarCategoriaView/>}/> */}
+                    
 
                 </Routes>
         </BrowserRouter>
