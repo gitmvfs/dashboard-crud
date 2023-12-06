@@ -11,18 +11,17 @@ import Categoria_post from "../../controller/categoria/categoria_post";
 import Navbar from "../../components/layout/switchNav";
 
 const CadastroCategoriaView = () => {
-
-  const [categoria,setCategoria] = useState({
-    nome:"",
+  const [categoria, setCategoria] = useState({
+    nome: "",
     dataInicio: "",
-    dataFinal:"01/02/2100",
-    descricao:"",
-    foto: []
-  })
-  
+    dataFinal: "2024-02-11",
+    descricao: "",
+    foto: [],
+  });
+
   const handleFileChange = (e) => {
     const files = e.target.files;
-    setCategoria({fotos:files});
+    setCategoria((prevCategoria) => ({ ...prevCategoria, foto: files }));
   };
 
   const enviarFormulario = async (e) => {
@@ -30,7 +29,7 @@ const CadastroCategoriaView = () => {
 
     const formDataImagens = new FormData();
 
-      formDataImagens.append("images", categoria.foto[0]);
+    formDataImagens.append("images", categoria.foto[0]);
 
     // Rota axios para enviar apenas as imagens
     try {
@@ -39,26 +38,21 @@ const CadastroCategoriaView = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(cadastroImagem)
-      // const urlImage = cadastroImagem.data[0];
-    
-      // Categoria_post(categoria,urlImage)
-      
-    } catch (error) {
-     
-      if(error.response.status === 400){
-        error = "Pârametros inválidos, verifique os campos."
-      }
-      else{
-        error = "Erro interno do servidor."
+      const urlImage = cadastroImagem.data[0];
 
+      Categoria_post(categoria,urlImage)
+    
+    } catch (error) {
+      if (error.response.status === 400) {
+        error = "Pârametros inválidos, verifique os campos.";
+      } else {
+        error = "Erro interno do servidor.";
       }
       Swal.fire({
         title: error,
         icon: "warning",
         confirmButtonText: "OK",
       });
-
     }
   };
 
@@ -66,38 +60,39 @@ const CadastroCategoriaView = () => {
     <>
       <Navbar />
       <center>
-      <div className="body-cad">
+        <div className="body-cad">
           <h3 className="titu">Nova categoria</h3>
           <form id="formulariocat" onSubmit={enviarFormulario}>
             <div className="ptcima">
               <div className="pat1">
-                <label>
-                  Nome:
-                  
-                </label>
+                <label>Nome:</label>
                 <input
-                    type="text"
-                    value={categoria.nome}
-                    onChange={(e) => setCategoria({nome:e.target.value})}
-                  />
-                <label>
-                  Data inicio:
-                  
-                </label>
+                  type="text"
+                  value={categoria.nome}
+                  onChange={(e) =>
+                    setCategoria({ ...categoria, nome: e.target.value })
+                  }
+                />
+                <label>Data inicio:</label>
                 <input
-                    type="date"
-                    value={categoria.dataInicio}
-                    onChange={(e) => setCategoria(formatDate({dataInicio:e.target.value}))}
-                  />
-                <label>
-                  Data final:
-                  
-                </label>
+                  type="date"
+                  value={categoria.dataInicio}
+                  onChange={(e) => {
+                    let valor = e.target.value;
+                    valor = formatDate(valor);
+                    setCategoria({ ...categoria, dataInicio: valor });
+                  }}
+                />
+                <label>Data final:</label>
                 <input
-                    type="date"
-                    value={categoria.dataFinal}
-                    onChange={(e) => setCategoria(formatDate({dataFinal:e.target.value}))}
-                  />
+                  type="date"
+                  value={categoria.dataFinal}
+                  onChange={(e) => {
+                    let valor = e.target.value;
+                    valor = formatDate(valor);
+                    setCategoria({ ...categoria, dataFinal: valor });
+                  }}
+                />
               </div>
 
               <label className="upload">
@@ -113,23 +108,21 @@ const CadastroCategoriaView = () => {
             </div>
 
             <div className="pat3">
-              <label>
-                Descricao:
-               
-              </label>
+              <label>Descricao:</label>
               <textarea
-                  className="desc"
-                  value={categoria.descricao}
-                  onChange={(e) => setCategoria({descricao:e.target.value})}
-                  style={{ resize: "none" }}
-                />
+                className="desc"
+                value={categoria.descricao}
+                onChange={(e) =>
+                  setCategoria({ ...categoria, descricao: e.target.value })
+                }
+                style={{ resize: "none" }}
+              />
             </div>
 
             <button type="submit">Cadastrar</button>
           </form>
         </div>
       </center>
-      
     </>
   );
 };
