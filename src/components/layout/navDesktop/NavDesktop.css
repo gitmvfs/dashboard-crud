@@ -12,7 +12,7 @@ header{
     justify-content: space-between;
     border-bottom: 2px black solid;
     box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.178);
-
+    z-index: 999;
     .logo-div{
         float: left;
     }
@@ -42,7 +42,7 @@ header{
         font-weight: 600;
         font-size: 1.5rem;
         cursor: pointer;
-        color: #fff;
+        color: black;
         padding-left: 5px;
         padding-right: 5px;
         padding-bottom: 5px;
@@ -51,18 +51,17 @@ header{
 
         /*Parte que vai definir a barra em baixo com o hover  */
 
-        --c:linear-gradient(#fff 0 0); 
+        --c:linear-gradient(#BB9161 0 0); 
         background: var(--c), var(--c);
         background-size: .0em .1em;
         background-position: 0% 90%;
         background-repeat: no-repeat;
         transition: .3s linear, background-size .3s .2s linear;
-        background-color: #BB9161;
 
     }
 
     .nav-header a:hover{
-        color:#ecececd7;
+        color:#333333d7;
         background-size: 50% .1em;
         background-position: 10% 90%, 90% 90%;
     }

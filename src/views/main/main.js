@@ -17,8 +17,11 @@ const MainView = () =>{
 
         <BannerComponent/>
         <CardCategoria/>
+        </Fade>
+        <Fade delay={1e2} cascade damping={1e-1} direction='down'  triggerOnce="true" >
         <CardProduto/>
         </Fade>
+
         </>
     )
 }
