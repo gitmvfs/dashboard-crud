@@ -27,7 +27,7 @@ header{
         justify-content: center;
         cursor: pointer;
         transition: all .5s ease-in-out;
-        background-color: #BB9161;
+        background-color: #676565;
         border-radius: 15%;
     }
 
@@ -116,14 +116,13 @@ header{
         .nav-mobile-header.visible{
             display: flex;
             flex-direction: column;
-            
         }
         
 
         .nav-mobile-header .h1{
         text-decoration: none;
             align-items: center;
-            background-color: #BB9161;
+            background-color: #676565;
             padding-top: 10px;
 
             padding-bottom: 10px;
