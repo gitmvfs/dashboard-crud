@@ -7,6 +7,10 @@
   box-shadow: none;
   width: calc(100vw - 60px);
 
+   .swiper-scrollbar-drag{
+    position: absolute;
+  }
+  
   #carrossel {
     min-width: 400px;
     min-height: 600px;
