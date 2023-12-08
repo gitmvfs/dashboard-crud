@@ -11,12 +11,10 @@ const Categoria_post = async(categoria,linkImg) =>{
           fim: new Date(categoria.dataFinal),
           img: linkImg,
         })
-        .then((resultado) => {
-          window.location.reload();
-          
+        .then((resultado) => {          
           Swal.fire({
             title: "Cadastrado",
-            type: "success",
+            icon: "success",
             timer: 3000,
             timerProgressBar: true,
           });

@@ -9,6 +9,7 @@ import cam from "../../images/icons/Group 75.png";
 
 import Categoria_post from "../../controller/categoria/categoria_post";
 import Navbar from "../../components/layout/switchNav";
+import { LimparFormularioCategoria } from "../../util/limparForm";
 
 const CadastroCategoriaView = () => {
   const [categoria, setCategoria] = useState({
@@ -40,8 +41,9 @@ const CadastroCategoriaView = () => {
       });
       const urlImage = cadastroImagem.data[0];
 
-      Categoria_post(categoria,urlImage)
-    
+      await Categoria_post(categoria,urlImage)
+      LimparFormularioCategoria(setCategoria)
+
     } catch (error) {
       if (error.response.status === 400) {
         error = "Pârametros inválidos, verifique os campos.";

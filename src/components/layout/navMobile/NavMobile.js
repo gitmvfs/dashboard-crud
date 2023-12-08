@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useContext} from "react";
 import { useState } from "react";
 import './NavMobile.css'
 import { Link, animateScroll as scroll } from "react-scroll";
+import { AuthContext } from '../../../contexts/auth'
 
 function NavMobile(){
   
@@ -9,6 +10,12 @@ function NavMobile(){
 
   const alternarMenu = () => {
     setMenuAtivo(!menuAtivo);
+  };
+
+  const { logout } = useContext(AuthContext);
+
+  const deslogar = () => {
+      logout();
   };
   
   return(
@@ -28,7 +35,7 @@ function NavMobile(){
           <a href="/" class="h1">Inicio</a>
           <a href="/categoria/cadastro" class="h1">+ Categoria</a>
           <a  href="/produto/cadastro" class="h1">+ Produto</a>
-          <a  class="h1">Deslogar</a>
+          <a  class="h1" onClick={ deslogar }>Deslogar</a>
       </nav>
       
       </div>

@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import './NavDesktop.css'
 import { Link, animateScroll as scroll } from "react-scroll";
+import { AuthContext } from '../../../contexts/auth'
 
 
 function NavDesktop(){
 
- 
+  const { logout } = useContext(AuthContext);
+
+  const deslogar = () => {
+      logout();
+  };
 
   return(
 
@@ -18,7 +23,7 @@ function NavDesktop(){
           <a  href="/produto/cadastro" class="h1">+ Produto</a>
       
       </nav>
-        <h3 id="deslogar">Deslogar</h3>
+        <h3 id="deslogar" onClick={ deslogar }>Deslogar</h3>
 
     </>
 

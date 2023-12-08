@@ -7,6 +7,7 @@ import Navbar from "../../components/layout/switchNav";
 import api from "../../service/api";
 import Produto_post from "../../controller/produto/produto_post";
 import cam from "../../images/icons/Group 75.png";
+import { LimparFormularioProduto } from "../../util/limparForm";
 
 const CadastroProdutoView = () => {
   useEffect(() => {
@@ -111,8 +112,7 @@ const CadastroProdutoView = () => {
       // Cria um map com os valores dos tamanhos
       const tamanhosSelecionados = tamanho.map((option) => option.value);
 
-      console.log(descricao)
-      Produto_post(
+     await Produto_post(
         nome,
         preco,
         genero,
@@ -124,7 +124,9 @@ const CadastroProdutoView = () => {
         urlImage_2,
         urlImage_3,
         categoria
-      );
+      )
+      LimparFormularioProduto(setNome,setPreco,setGenero,setDescricao,setTamanho,setCor,setTipo,setCategoria,setFotos)
+
     } catch (error) {
       if(error.response.status === 400){
         error = "Pârametros inválidos, verifique os campos."

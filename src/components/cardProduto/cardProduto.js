@@ -80,6 +80,9 @@ function CardProduto() {
           dataFiltro.map((props) => (
             <div className="card-container" key={props.index}>
               <div>
+                <center>
+                  <h4>{props.nome}</h4>
+                </center>
                 <img src={props.linkFoto1} />
 
                 <div className="opcoes-produto">
