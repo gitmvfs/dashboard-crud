@@ -46,7 +46,16 @@
 
   .tamanhos {
     margin-bottom: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
+
+.tamanho:hover , .cor:hover{
+  font-size: 1.0em;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
   .tamanhos-div {
     display: flex;
@@ -80,16 +89,22 @@
   }
   .cores {
     margin-bottom: 2%;
+    display: flex;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .preco {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     margin-bottom: 2%;
+    align-items: flex-start;
   }
 
   .dados {
     margin-left: 3px;
+    font-size: 32px;
   }
 
   .desc {
@@ -97,6 +112,9 @@
   }
 
   .descricao {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     margin-bottom: 2%;
   }
 

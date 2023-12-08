@@ -1,14 +1,17 @@
-import "./cadastroProduto.css";
+import "./atualizarProduto.css";
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Navbar from "../../components/layout/switchNav";
 import api from "../../service/api";
-import Produto_post from "../../controller/produto/produto_post";
+import produto_put from "../../controller/produto/produto_put";
 import cam from "../../images/icons/Group 75.png";
+import { useParams } from "react-router-dom";
 
-const CadastroProdutoView = () => {
+const EditarProdutoView = () => {
+  const { id } = useParams();
+
   useEffect(() => {
     // Função assíncrona para buscar as opções da categoria
     const fetchCategorias = async () => {
@@ -19,14 +22,47 @@ const CadastroProdutoView = () => {
           (categoria) => categoria.nome
         );
         setCategoriasOpt(nomesDasCategorias);
+
+        let responseProduto = await api.get("/produto/" + id);
+
+        responseProduto = responseProduto.data[0];
+        setNome(responseProduto.nome);
+        setCor(responseProduto.cor);
+        setPreco(responseProduto.preco);
+        setTamanho((prevState) => [
+          ...prevState,
+          ...responseProduto.tamanhos.map((tamanho) => ({
+            value: tamanho,
+            label: tamanho,
+          })),
+        ]);
+        setDescricao(responseProduto.descricao);
+        setGenero({
+          value: responseProduto.genero,
+          label: responseProduto.genero,
+        });
+        setTipo({ value: responseProduto.tipo, label: responseProduto.tipo });
+        setCategoria({
+          value: responseProduto.fk_categoria,
+          label: responseProduto.fk_categoria,
+        });
+        setFotos([
+          responseProduto.linkFoto1,
+          responseProduto.linkFoto2,
+          responseProduto.linkFoto3,
+        ]);
       } catch (error) {
-        console.error("Erro ao obter opções de categoria:", error);
+        Swal.fire(
+          "Falha ao obter dados do produto e/ou categoria",
+          "",
+          "error"
+        );
       }
     };
 
     // Chama a função para buscar as opções da categoria quando o componente montar
     fetchCategorias();
-  }, []); // O array de dependências vazio garante que a solicitação seja feita apenas uma vez, quando o componente montar
+  }, [id]); // O array de dependências vazio garante que a solicitação seja feita apenas uma vez, quando o componente montar
 
   const [tamanho, setTamanho] = useState([]);
   const [nome, setNome] = useState("");
@@ -89,50 +125,58 @@ const CadastroProdutoView = () => {
   const enviarFormulario = async (e) => {
     e.preventDefault();
 
-    const formDataImagens = new FormData();
-
-    // Adiciona as fotos ao FormData usando o mesmo nome que o servidor espera ('images')
-    for (let i = 0; i < fotos.length; i++) {
-      formDataImagens.append("images", fotos[i]);
-    }
-
-    // Rota axios para enviar apenas as imagens
     try {
-      const cadastroImagem = await api.post("/imagem", formDataImagens, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      const urlImage_1 = cadastroImagem.data[0];
-      const urlImage_2 = cadastroImagem.data[1];
-      const urlImage_3 = cadastroImagem.data[2];
-
-      // Cria um map com os valores dos tamanhos
       const tamanhosSelecionados = tamanho.map((option) => option.value);
 
-      console.log(descricao)
-      Produto_post(
-        nome,
-        preco,
-        genero,
-        descricao,
-        tamanhosSelecionados,
-        cor,
-        tipo,
-        urlImage_1,
-        urlImage_2,
-        urlImage_3,
-        categoria
-      );
-    } catch (error) {
-      if(error.response.status === 400){
-        error = "Pârametros inválidos, verifique os campos."
-      }
-      else{
-        error = "Erro interno do servidor."
+      if (categoria.foto instanceof FileList) {
+        const formDataImagens = new FormData();
 
+        // Adiciona as fotos ao FormData usando o mesmo nome que o servidor espera ('images')
+        for (let i = 0; i < fotos.length; i++) {
+          formDataImagens.append("images", fotos[i]);
+        }
+        const cadastroImagem = await api
+          .post("/imagem", formDataImagens, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((resultado) => {
+            produto_put(
+              nome,
+              preco,
+              genero,
+              descricao,
+              tamanhosSelecionados,
+              cor,
+              tipo,
+              resultado.data[0],
+              resultado.data[1],
+              resultado.data[2],
+              categoria,
+              id
+            );
+          });
       }
+
+      // Rota axios para enviar apenas as imagens
+      else {
+        produto_put(
+          nome,
+          preco,
+          genero,
+          descricao,
+          tamanhosSelecionados,
+          cor,
+          tipo,
+          fotos[0],
+          fotos[1],
+          fotos[2],
+          categoria,
+          id
+        );
+      }
+    } catch(error) {
       Swal.fire({
         title: error,
         icon: "warning",
@@ -146,7 +190,7 @@ const CadastroProdutoView = () => {
       <Navbar />
       <center>
         <div className="body-cad">
-          <h3 className="titu">Novo produto</h3>
+          <h3 className="titu">Atualizar produto</h3>
           <form id="formulariocat" onSubmit={enviarFormulario}>
             <div className="ptcima">
               <div className="pat1">
@@ -239,20 +283,17 @@ const CadastroProdutoView = () => {
               <textarea
                 className="desc"
                 value={descricao}
-                onChange={(e) =>
-                  setDescricao( e.target.value )
-                }
+                onChange={(e) => setDescricao(e.target.value)}
                 style={{ resize: "none" }}
               />
             </div>
 
-            <button type="submit">Cadastrar</button>
+            <button type="submit">Atualizar</button>
           </form>
         </div>
       </center>
-
     </div>
   );
 };
 
-export default CadastroProdutoView;
+export default EditarProdutoView;

@@ -7,7 +7,8 @@ import MainView from "./views/main/main";
 import CadastroCategoriaView from "./views/categoriaPost/formCategoria";
 import EditarCategoriaView from "./views/categoriaPut/formCategoria";
 import CadastroProdutoView from "./views/produtoPost/cadastroProduto";
-import ProdutoVisualizarView from "./views/produtoVisualizar/tProduto";
+import VisualizarProdutoView from "./views/produtoVisualizar/tProduto";
+import EditarProdutoView from "./views/produtoPut/atualizarProduto";
 
 const AppRotas = () => {
     return (
@@ -20,8 +21,8 @@ const AppRotas = () => {
                     <Route path="/categoria/editar/:id" element ={<EditarCategoriaView/>}/>
                     
                     <Route path="/produto/cadastro" element ={<CadastroProdutoView/>}/>
-                    <Route path="/produto/visualizar" element ={<ProdutoVisualizarView/>}/>
-                    {/* <Route path="/categoria/editar/:id" element ={<EditarCategoriaView/>}/> */}
+                    <Route path="/produto/visualizar/:id" element ={<VisualizarProdutoView/>}/>
+                    <Route path="/produto/editar/:id" element ={<EditarProdutoView/>}/>
                     
 
                 </Routes>
