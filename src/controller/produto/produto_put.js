@@ -4,7 +4,6 @@ import { Navigate } from "react-router-dom";
 
 const cadastrar_produto = (nome,preco,genero,descricao,tamanhosSelecionados,cor,tipo,urlImage_1,urlImage_2,urlImage_3,categoria,id) => {
 
-      console.log(descricao)
 api
         .put("/produto/"+id, {
           nome: nome,

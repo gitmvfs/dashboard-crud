@@ -68,7 +68,7 @@ const EditarProdutoView = () => {
   const [nome, setNome] = useState("");
   const [preco, setPreco] = useState("");
   const [cor, setCor] = useState("");
-  const [genero, setGenero] = useState("feminino");
+  const [genero, setGenero] = useState({value:"feminino", label: "Feminino"});
   const [tipo, setTipo] = useState("");
   const [fotos, setFotos] = useState([]);
   const [descricao, setDescricao] = useState("");
@@ -128,7 +128,9 @@ const EditarProdutoView = () => {
     try {
       const tamanhosSelecionados = tamanho.map((option) => option.value);
 
-      if (categoria.foto instanceof FileList) {
+        console.log(typeof fotos)
+
+      if (fotos instanceof FileList) {
         const formDataImagens = new FormData();
 
         // Adiciona as fotos ao FormData usando o mesmo nome que o servidor espera ('images')
